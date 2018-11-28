@@ -1,0 +1,10 @@
+\.idea
+.vscode
+.git
+dist
+
+node_modules
+
+.npmignore
+tsconfig.json
+yarn-error.log
