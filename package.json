@@ -1,8 +1,8 @@
 {
   "name": "traversable",
   "version": "0.1.3",
-  "main": "dist/main/index.ts",
-  "typings": "dist/main/index.d.ts",
+  "main": "lib/main/index.ts",
+  "typings": "lib/main/index.d.ts",
   "license": "MIT",
   "scripts": {
     "build": "tsc",
