@@ -6,7 +6,6 @@
   "license": "MIT",
   "scripts": {
     "build": "tsc",
-    "mklib": "tsc",
     "test": "jest --config ./jest.config.js"
   },
   "devDependencies": {
