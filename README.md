@@ -2,7 +2,10 @@
 ## This generic collection library, written by Typescript
 
 
-[!npm][npm-url]
+`Currently, This collection library is testing)
+Only tests on numbers type have been performed`
+
+### [npm][npm-url]
 
 in JavaScript
 in TypeScript
