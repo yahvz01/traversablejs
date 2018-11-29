@@ -2,7 +2,7 @@
 ## This generic collection library, written by Typescript
 
 
-[![npm-image](https://en.wikipedia.org/wiki/Npm_(software)#/media/File:Npm-logo.svg)][npm-url]
+[!npm][npm-url]
 
 in JavaScript
 in TypeScript
@@ -51,5 +51,4 @@ yarn test
 
 [MIT](LICENSE)
 
-[npm-image] : https://en.wikipedia.org/wiki/Npm_(software)#/media/File:Npm-logo.svg
 [npm-url]: https://npmjs.org/package/traversable
