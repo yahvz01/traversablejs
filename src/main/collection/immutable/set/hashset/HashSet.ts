@@ -22,10 +22,11 @@ class HashSet<_Tp> implements Set<_Tp> {
 
     private _size : number | null = null
     get size(): number {
-        if(this._size == null)
+        if(this._size == null){
             this._size = 0
             for(const key in this.dataSet)
                 ++this._size
+        }
         return this._size
     }
 
@@ -99,7 +100,7 @@ class HashSet<_Tp> implements Set<_Tp> {
     }
 
     take(index: number): Traversable<_Tp> {
-        return this.slice(0, index + 1)
+        return this.slice(0, index)
     }
 
     takeWhile(predicate: (e: _Tp) => boolean): Traversable<_Tp> {
@@ -191,9 +192,9 @@ class HashSet<_Tp> implements Set<_Tp> {
     }
 
     slice(from: number, until: number = this.size): Traversable<_Tp> {
-        if(until > this.size){
-            throw new Error("NoSuchElementException")
-        }
+        if(from < 0)
+            throw new RangeError("from index should be greater than 0")
+
         const result = HashSet.of<_Tp>()
         const range = Gen.until(from, until)
         let currIndex = 0;

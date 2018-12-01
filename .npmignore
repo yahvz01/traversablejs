@@ -1,0 +1,10 @@
+.idea
+.vscode
+.git
+src
+
+node_modules
+
+.gitignore
+yarn-*
+yarn-error.log

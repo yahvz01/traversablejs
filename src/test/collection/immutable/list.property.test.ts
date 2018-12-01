@@ -96,16 +96,15 @@ describe("List property test [Traversable]", () => {
         expect(multiList.tail.size).toEqual(5)
     })
 
-    test.skip("property init", () => {
+    test("property init", () => {
         expect(emptyList.init.size).toEqual(0)
 
         expect(singleList.init.size).toEqual(0)
-        //expect(singleList.init.size).toEqual(0)
 
+        expect(doubleList.init.init.size).toEqual(0)
         expect(doubleList.init.size).toEqual(1)
-        //expect(doubleList.init.size).toEqual(1)
 
+        expect(multiList.init.init.size).toEqual(4)
         expect(multiList.init.size).toEqual(5)
-        //expect(multiList.init.size).toEqual(5)
     })
 })

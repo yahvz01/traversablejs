@@ -13,7 +13,7 @@ class Gen {
         if(from % 1 != 0 || until % 1 != 0)
             throw new Error("IllegalArgumentException : from, (until|to) index must be integer values")
         else if(from > until)
-            throw new RangeError("from index is greeter than end index(until|to)")
+            throw new RangeError("from index is greater than end index(until|to)")
     }
 
     get size() : number {

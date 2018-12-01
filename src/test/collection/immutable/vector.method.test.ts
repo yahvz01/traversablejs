@@ -15,6 +15,14 @@ describe("Vector implements Traversable only method", () => {
         multiVector = Vector.of(1, 2, 3, 4, 5)
     })
 
+    afterEach(() => {
+        // immutable Check
+        expect(emptyVector.size).toEqual(0)
+        expect(singleVector.size).toEqual(1)
+        expect(doubleVector.size).toEqual(2)
+        expect(multiVector.size).toEqual(5)
+    })
+
     // 하위 컬렉션
 
     test("vector slice", () => {

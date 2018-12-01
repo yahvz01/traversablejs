@@ -87,26 +87,22 @@ describe("List method test [Traversable]", () => {
         expect(multiList.slice(0, 641241).size).toEqual(6)
     })
 
-    test.skip("method: drop", () => {
+    test("method: drop", () => {
         expect(emptyList.drop(0).size).toEqual(0)
         expect(emptyList.drop(1).size).toEqual(0)
 
-        expect(singleList.drop(0).size).toEqual(0)
+        expect(singleList.drop(0).size).toEqual(1)
         expect(singleList.drop(1).size).toEqual(0)
         expect(singleList.drop(2).size).toEqual(0)
 
-        expect(doubleList.drop(0)).toEqual(listOf(95, 200))
+        expect(doubleList.drop(0).size).toEqual(2)
         expect(doubleList.drop(1).size).toEqual(1)
-/*
-        expect(doubleList.drop(2).size).toEqual(0)
-        expect(doubleList.drop(3).size).toEqual(0)
 
         expect(multiList.drop(0).size).toEqual(6)
         expect(multiList.drop(2).size).toEqual(4)
         expect(multiList.drop(4).size).toEqual(2)
         expect(multiList.drop(6).size).toEqual(0)
         expect(multiList.drop(641241).size).toEqual(0)
-*/
     })
 
     test("method: takeWhile", () => {

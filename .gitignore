@@ -5,7 +5,4 @@ dist
 lib
 
 node_modules
-
-.npmignore
-tsconfig.json
 yarn-error.log

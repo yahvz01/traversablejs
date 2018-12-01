@@ -2,42 +2,67 @@ import {HashSet, Traversable, Set} from "../../../main";
 
 describe('hashset : Traversable property', () => {
 
-    let testHashSet : Traversable<number>
     let emptyHashSet: Traversable<number>
     let singleHashSet : Traversable<number>
+    let doubleHashSet : Traversable<number>
+    let testHashSet : Traversable<number>
 
     beforeEach(() => {
-        testHashSet = HashSet.of(1, 2, 3, 4, 5, 5, 6)
         emptyHashSet = HashSet.of()
         singleHashSet = HashSet.of(111)
+        doubleHashSet = HashSet.of(95, 200)
+        testHashSet = HashSet.of(1, 2, 3, 4, 5, 5, 6)
+    })
+
+    afterEach(() => {
+        // immutable Check
+        expect(emptyHashSet.size).toEqual(0)
+        expect(singleHashSet.size).toEqual(1)
+        expect(doubleHashSet.size).toEqual(2)
+        expect(testHashSet.size).toEqual(6)
     })
 
     test("Traversable slice", () => {
         //length
-        expect(testHashSet.slice(0, 2).size).toEqual(2)
+
+        expect(emptyHashSet.slice(0, 0).size).toEqual(0)
+
         expect(singleHashSet.slice(0, 1).size).toEqual(1)
-        expect(() => singleHashSet.slice(2,3)).toThrowError()
-        expect(() => emptyHashSet.slice(0, 1)).toThrowError()
+        expect(singleHashSet.slice(2,3).size).toEqual(0)
+
+        expect(doubleHashSet.slice(0, 1).size).toEqual(1)
+        expect(doubleHashSet.slice(0, 2).size).toEqual(2)
+        expect(doubleHashSet.slice(0, 12).size).toEqual(2)
+
+        expect(testHashSet.slice(0, 2).size).toEqual(2)
+        expect(testHashSet.slice(0, 40).size).toEqual(6)
     })
 
-    test("Traverable slice from index greater than to", () => {
-        expect(testHashSet.slice(1, 1).size).toEqual(0)
-        expect(() => testHashSet.slice(2, 1)).toThrowError()
-        expect(() => singleHashSet.slice(2,2).size).toThrowError()
-        expect(() => emptyHashSet.slice(0, 1)).toThrowError()
-    })
 
     test("Traversable take", () => {
-        expect(testHashSet.take(5).size).toEqual(6)
-        expect(testHashSet.take(0).size).toEqual(1)
-        expect(singleHashSet.take(0).size).toEqual(1)
+        expect(emptyHashSet.take(0).size).toEqual(0)
+        expect(emptyHashSet.take(1).size).toEqual(0)
 
+        expect(singleHashSet.take(0).size).toEqual(0)
+        expect(singleHashSet.take(1).size).toEqual(1)
+
+        expect(doubleHashSet.take(0).size).toEqual(0)
+        expect(doubleHashSet.take(1).size).toEqual(1)
+        expect(doubleHashSet.take(2).size).toEqual(2)
+        expect(doubleHashSet.take(25).size).toEqual(2)
+
+        expect(testHashSet.take(5).size).toEqual(5)
+        expect(testHashSet.take(0).size).toEqual(0)
     })
 
     test("Traversable take Throw", () => {
-        expect(() => testHashSet.take(111)).toThrowError()
-        expect(() => singleHashSet.take(6)).toThrowError()
-        expect(() => emptyHashSet.take(1)).toThrowError()
+        expect(emptyHashSet.take(1).size).toEqual(0)
+        expect(singleHashSet.take(6).size).toEqual(1)
+        expect(doubleHashSet.take(1).size).toEqual(1)
+        expect(doubleHashSet.take(2).size).toEqual(2)
+        expect(testHashSet.take(0).size).toEqual(0)
+        expect(testHashSet.take(3).size).toEqual(3)
+        expect(testHashSet.take(111).size).toEqual(6)
     })
 
     test("Traversable drop", () => {
@@ -49,9 +74,11 @@ describe('hashset : Traversable property', () => {
     test("Traversable takeWhile", () => {
         // UnExpected This Test only depend on hash function
     })
+
     test("Traversable dropWhile", () => {
         // UnExpected This Test only depend on hash function
     })
+
     test("Traversable filter", () => {
         const evenCheck = ( e: number ) =>  e % 2 == 0
         expect(testHashSet.filter(evenCheck).size).toEqual(3)
@@ -91,9 +118,11 @@ describe('hashset : Traversable property', () => {
         expect(emptyHashSet.foldLeft(0, addAccumulation)).toEqual( 0)
         expect(emptyHashSet.foldLeft(0, mutiplyAccumulation)).toEqual( 0)
     })
+
     test("Traversable foldRight", () => {
         // Not Different with foldLeft
     })
+
 })
 
 

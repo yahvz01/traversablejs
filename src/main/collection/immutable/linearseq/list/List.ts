@@ -67,11 +67,13 @@ class List<_Tp> implements LinearSeq<_Tp> {
         return List.of<_Tp>(...buffer);
     }
     get init(): Traversable<_Tp>{
+        let currIndex = 0;
         const buffer = new Array<_Tp>()
         this.foreach((value) => {
-            buffer.push(value)
+            if((++currIndex) != this.size)
+                buffer.push(value)
         })
-        return List.of<_Tp>();
+        return List.of<_Tp>(...buffer)
     }
 
 
@@ -244,7 +246,7 @@ class List<_Tp> implements LinearSeq<_Tp> {
         return List.of(...buffer);
     }
 
-    slice(from: number, until: number = (this.size - 1)): Traversable<_Tp> {
+    slice(from: number, until: number = this.size): Traversable<_Tp> {
         if(from < 0)
             throw new RangeError("From index must be greater than zero")
         //if(until > this.size)
@@ -263,14 +265,10 @@ class List<_Tp> implements LinearSeq<_Tp> {
     }
 
     drop(count: number): Traversable<_Tp> {
-        if(count >= this.size - 1){
-            return List.of<_Tp>()
+        if(count > this.size){
+            return List.of<_Tp>();
         }
         return this.slice(count)
-
-        /*
-            drop index is start index
-         */
     }
 
     dropWhile(predicate: (e: _Tp) => boolean): Traversable<_Tp> {

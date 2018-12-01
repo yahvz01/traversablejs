@@ -4,48 +4,58 @@ import { Vector, Traversable } from "../../../main";
 describe("Vector implements Traversable only property", () => {
 
     function makeEmpty(){
-        testVector = Vector.of();
+        multiVector = Vector.of();
     }
 
     let emptyVector : Traversable<number>
-    let testVector : Traversable<number>
+    let singleVector : Traversable<number>
+    let doubleVector : Traversable<number>
+    let multiVector : Traversable<number>
 
     beforeEach(() => {
         emptyVector = Vector.of<number>()
-        testVector = Vector.of(1, 2, 3, 4, 5)
+        singleVector = Vector.of(111)
+        doubleVector = Vector.of(95, 200)
+        multiVector = Vector.of(1, 2, 3, 4, 5)
     })
-
+    
+    afterEach(() => {
+        // immutable Size Check
+        expect(emptyVector.size).toEqual(0)
+        expect(singleVector.size).toEqual(1)
+        expect(doubleVector.size).toEqual(2)
+        expect(multiVector.size).toEqual(5)
+    })
 
     test("vector isEmpty", () => {
         expect(emptyVector.isEmpty).toBeTruthy()
-        expect(testVector.isEmpty).not.toBeTruthy()
+        expect(multiVector.isEmpty).not.toBeTruthy()
     })
     test("vector size", () => {
-        expect(testVector.size).toEqual(5)
+        expect(multiVector.size).toEqual(5)
     })
     test("vector hasDefinedSize", () => {
-        expect(testVector.hasDefiniteSize()).toBeTruthy()
+        expect(multiVector.hasDefiniteSize()).toBeTruthy()
     })
 
     // 크기정보
     // head
     test("vector head", () => {
         expect(() => emptyVector.head).toThrowError()
-        expect(testVector.head).toEqual(1)
+        expect(multiVector.head).toEqual(1)
     })
 
     test("vector headOption get", () => {
-        expect(testVector.headOptional.get()).toBe(1)
+        expect(multiVector.headOptional.get()).toBe(1)
     })
 
     test("vector headerOption getOrElse", () => {
-        makeEmpty();
-        expect(testVector.headOptional.getOrElse(-1)).toEqual(-1)
+        expect(emptyVector.headOptional.getOrElse(-1)).toEqual(-1)
     })
 
     // head
     test("vector last", () => {
-        expect(testVector.last).toBe(5)
+        expect(multiVector.last).toBe(5)
     })
 
     test("vector last throw Error", () => {
@@ -53,7 +63,7 @@ describe("Vector implements Traversable only property", () => {
     })
 
     test("vector lastOption get", () => {
-        expect(testVector.lastOptional.get()).toBe(5)
+        expect(multiVector.lastOptional.get()).toBe(5)
     })
 
     test("vector lastOption get throw Error", () => {
@@ -61,16 +71,14 @@ describe("Vector implements Traversable only property", () => {
     })
 
     test("vector lastOption getOrElse", () => {
-        makeEmpty();
-        expect(testVector.lastOptional.getOrElse(-1)).toEqual(-1)
+        expect(emptyVector.lastOptional.getOrElse(-1)).toEqual(-1)
     })
 
     test("vector tail", () => {
-        expect(testVector.tail).toEqual(Vector.of(2,3,4,5))
+        expect(multiVector.tail).toEqual(Vector.of(2,3,4,5))
     })
 
     test("vector tail Empty", () => {
-        makeEmpty();
-        expect(testVector.tail).toEqual(Vector.of())
+        expect(emptyVector.tail).toEqual(Vector.of())
     })
 });
