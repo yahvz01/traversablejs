@@ -4,7 +4,7 @@ import {
     Gen, MapTuple, hashCode, deepCopy, // generic
     Seq, Set, Map,
     List,
-    Vector, HashSet, HashMap, // immutable
+    Vector, HashSet, HashMap, TreeSet,// immutable
     Buffer, MutableStack, BufferedStack, MutableQueue, BufferedQueue   // mutable
 } from "./collection"
 import {
@@ -44,7 +44,7 @@ export {
     Traversable, // traverable
     Seq, Set, Map,
     Gen, MapTuple, hashCode, deepCopy, // generic
-    Vector, HashSet, HashMap, List,// immutable
+    Vector, HashSet, HashMap, List, TreeSet,// immutable
     listOf, seqOf, setOf, mapOf, tupleOf,// immutable Helper function
     Buffer, MutableStack, BufferedStack, MutableQueue, BufferedQueue,  // mutable
     mutableQueueOf, mutableStackOf, // mutableHelper

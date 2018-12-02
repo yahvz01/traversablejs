@@ -6,7 +6,7 @@ import {
 import {
     Seq, Set, Map,
     List,
-    Vector, HashSet, HashMap } from "./immutable"
+    Vector, HashSet, HashMap, TreeSet } from "./immutable"
 import { Gen, MapTuple, hashCode, deepCopy } from "./generic"
 
 export {
@@ -14,6 +14,6 @@ export {
     Gen, MapTuple, hashCode, deepCopy, // generic
     Seq, Set, Map,
     List,
-    Vector, HashSet, HashMap, // immutable
+    Vector, HashSet, HashMap, TreeSet, // immutable
     Buffer, MutableStack, BufferedStack, MutableQueue, BufferedQueue   // mutable
 }
