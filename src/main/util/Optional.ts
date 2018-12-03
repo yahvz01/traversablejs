@@ -15,17 +15,17 @@ class Optional<_Tp> {
         this.data = data
     }
 
-    public get(): _Tp | null {
+    public get(): _Tp {
         if(!this.isPresent(this.data)){
             throw new Error("IllegalException");
         }
-        return this.data
+        return this.data as _Tp
     }
-    public getOrElse( defaultData : _Tp ) : _Tp | null {
+    public getOrElse( defaultData : _Tp ) : _Tp {
         if(!this.isPresent(this.data))
             return defaultData
         else
-            return this.data
+            return this.data as _Tp
     }
     public ifPresent( consumer : (value : _Tp | null ) => void ) : void {
         if(!this.isPresent(this.data)){
