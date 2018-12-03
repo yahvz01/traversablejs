@@ -1,11 +1,6 @@
 import Optional from "../util/Optional";
 
 interface Traversable<_Tp>{
-    foreach( consumer : ( e : _Tp) => (void)) : void
-
-    // 맵핑
-    map<K>(f : (e : _Tp) => K) : Traversable<K>
-    
     //크기 정보
     isEmpty : boolean
     size : number
@@ -21,6 +16,11 @@ interface Traversable<_Tp>{
     tail : Traversable<_Tp>
     init : Traversable<_Tp>
 
+    foreach( consumer : ( e : _Tp) => (void)) : void
+
+    // Mapping
+    map<K>(f : (e : _Tp) => K) : Traversable<K>
+
     // slice method Not Throw Exception
     slice( from : number, until : number ) : Traversable<_Tp>
     take( count : number ) : Traversable<_Tp>
@@ -31,12 +31,12 @@ interface Traversable<_Tp>{
 
     filter( predicate : (e : _Tp) => boolean ) : Traversable<_Tp>
 
-    // 원소 조건
+    // Condition of Element
     forall( predicate : (e : _Tp) => boolean) : boolean
     exists( predicate : (e : _Tp) => boolean) : boolean
     count( predicate : (e : _Tp) => boolean) : number
 
-    //폴드
+    // Folding
     foldLeft(init: _Tp, folding : (acc : _Tp, curr : _Tp) => _Tp) : _Tp
     foldRight(init: _Tp, folding : (acc : _Tp, curr : _Tp) => _Tp) : _Tp
 }

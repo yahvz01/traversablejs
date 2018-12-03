@@ -138,14 +138,11 @@ describe('MutableQueue (Adaptor) method test', () => {
 
         //expect(singleQueue.s/ize).toEqual(1)
         expect(singleQueue.dequeueOptional().get()).toEqual(111)
-        expect(() => singleQueue.dequeueOptional().get()).toThrowError()
         expect(singleQueue.dequeueOptional().getOrElse(-1)).toEqual(-1)
 
 
         expect(doubleQueue.dequeueOptional().get()).toEqual(95)
         expect(doubleQueue.dequeueOptional().getOrElse(-1)).toEqual(200)
-        expect(() => doubleQueue.dequeueOptional().get()).toThrowError()
-
 
         expect(multiQueue.dequeueOptional().get()).toEqual(1)
         expect(multiQueue.dequeueOptional().get()).toEqual(2)

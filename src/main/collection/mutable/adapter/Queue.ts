@@ -44,7 +44,14 @@ class BufferedQueue<_Tp> implements MutableQueue<_Tp> {
     }
 
     dequeueOptional(): Optional<_Tp> {
-        return this.dataSet.headOptional
+        if(this.dataSet.isEmpty){
+            return Optional.emptyOf()
+        } else {
+            const result = Optional.of(this.dataSet.head)
+            this.dataSet.shift()
+            return result;
+        }
+
     }
 
     enqueue( e : _Tp):  MutableQueue<_Tp> {

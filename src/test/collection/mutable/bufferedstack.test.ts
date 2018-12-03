@@ -92,11 +92,5 @@ describe('MutableQueue (Adaptor) method test', () => {
         expect(doubleStack.popOptional().get()).toEqual(200)
         expect(multiStack.popOptional().get()).toEqual(6)
     })
-    test("method: popAll", () => {
-        expect(emptyStack.popAll().size).toEqual(0)
-        expect(singleStack.popAll().size).toEqual(1)
-        expect(doubleStack.popAll().size).toEqual(2)
-        expect(multiStack.popAll().size).toEqual(6)
-    })
 
 })
