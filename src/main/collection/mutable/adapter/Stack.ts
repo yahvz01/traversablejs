@@ -5,15 +5,15 @@ import Optional from "../../../util/Optional"
 interface MutableStack<_Tp> {
 
     size : number
-    top : _Tp // peek
     isEmpty : boolean
     hasNext : boolean
+    top : _Tp // peek
+
 
     push( e : _Tp ) : MutableStack<_Tp>
     pushAll( inCollection : Traversable<_Tp>) : MutableStack<_Tp>
     pop() : _Tp
     popOptional() : Optional<_Tp>
-    popAll() : Traversable<_Tp>
 }
 
 class BufferedStack<_Tp> implements MutableStack<_Tp>{
@@ -30,11 +30,19 @@ class BufferedStack<_Tp> implements MutableStack<_Tp>{
     }
 
     get size() : number { return this.dataSet.size }
-    get top(): _Tp { return this.dataSet.head }
+    get top(): _Tp {
+        if(this.isEmpty){
+            throw new Error("NoSuchElementException")
+        }
+        return this.dataSet.head
+    }
     get isEmpty() : boolean { return this.dataSet.isEmpty }
     get hasNext() : boolean { return !(this.isEmpty) }
 
     pop(): _Tp {
+        if(this.isEmpty){
+            throw new Error("NoSuchElementException")
+        }
         return this.dataSet.shift()
     }
 
@@ -47,19 +55,13 @@ class BufferedStack<_Tp> implements MutableStack<_Tp>{
         }
     }
 
-    popAll(): Traversable<_Tp> {
-        const result = this.dataSet.map( value => value )
-        this.dataSet = Buffer.of<_Tp>()
-        return result
-    }
-
     push(e: _Tp): MutableStack<_Tp> {
         this.dataSet.unshift(e)
         return this
     }
 
     pushAll(inCollection: Traversable<_Tp>): MutableStack<_Tp> {
-        inCollection.foreach((value) => this.dataSet.push(value))
+        inCollection.foreach((value) => this.dataSet.unshift(value))
         return this
     }
 }
