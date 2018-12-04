@@ -15,7 +15,7 @@ Optional.empty()
 Optional.of(“james”)
 
 Vector.of(1, 2, 3, 4, 5)
-seOf(1, 2, 3, 4, 5)
+seqOf(1, 2, 3, 4, 5)
 
 Set.of(1,  2 , 3 , 4 , 4,  5)
 setOf(1,  2 , 3 , 4 , 4,  5)
