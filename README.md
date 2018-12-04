@@ -1,12 +1,10 @@
 # traversablejs
 
-This generic collection library, written by Typescript
+Generic collection library, written by Typescript
 
-
-`Currently, This collection library is testing)
-Only tests on numbers type have been performed`
 
  [npm][npm-url]
+ 
 
 in JavaScript
 in TypeScript
