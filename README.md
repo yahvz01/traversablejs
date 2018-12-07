@@ -1,12 +1,10 @@
 # traversablejs
 
-This generic collection library, written by Typescript
+Generic collection library, written by Typescript
 
-
-`Currently, This collection library is testing)
-Only tests on numbers type have been performed`
 
  [npm][npm-url]
+ 
 
 in JavaScript
 in TypeScript
@@ -17,7 +15,7 @@ Optional.empty()
 Optional.of(“james”)
 
 Vector.of(1, 2, 3, 4, 5)
-seOf(1, 2, 3, 4, 5)
+seqOf(1, 2, 3, 4, 5)
 
 Set.of(1,  2 , 3 , 4 , 4,  5)
 setOf(1,  2 , 3 , 4 , 4,  5)
