@@ -152,7 +152,7 @@ class HashSet<_Tp> implements Set<_Tp> {
         return result
     }
 
-    foldLeft(init: _Tp, folding: (acc: _Tp, curr: _Tp) => _Tp): _Tp {
+    foldLeft<K>(init: K, folding: (acc: K, curr: _Tp) => K): K {
         let result = init
         for( const key in this.dataSet ){
             result = folding(result, this.dataSet[key])
@@ -160,7 +160,7 @@ class HashSet<_Tp> implements Set<_Tp> {
         return result
     }
 
-    foldRight(init: _Tp, folding: (acc: _Tp, curr: _Tp) => _Tp): _Tp {
+    foldRight<K>(init: K, folding: (acc: K, curr: _Tp) => K): K {
         let result = init
         for( const key in this.dataSet ){
             result = folding(result, this.dataSet[key])

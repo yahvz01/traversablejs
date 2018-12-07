@@ -128,7 +128,7 @@ class Vector<_Tp> implements IndexedSeq<_Tp>{
         return flag;
     }
 
-    foldLeft(init: _Tp, folding: (acc: _Tp, curr: _Tp) => _Tp): _Tp {
+    foldLeft<K>(init: K, folding: (acc: K, curr: _Tp) => K): K {
         let result = init;
         this.dataSet.forEach((value) => {
             result = folding(result, value)
@@ -136,7 +136,7 @@ class Vector<_Tp> implements IndexedSeq<_Tp>{
         return result
     }
 
-    foldRight(init: _Tp, folding: (acc: _Tp, curr: _Tp) => _Tp): _Tp {
+    foldRight<K>(init: K, folding: (acc: K, curr: _Tp) => K): K {
         let result = init
         this.dataSet.reverse().forEach((value) => {
             result = folding(result, value)

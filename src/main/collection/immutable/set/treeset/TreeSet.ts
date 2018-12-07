@@ -247,7 +247,7 @@ class TreeSet<_Tp> implements Set<_Tp> {
         return TreeSet.of(...buffer)
     }
 
-    foldLeft(init: _Tp, folding: (acc: _Tp, curr: _Tp) => _Tp): _Tp {
+    foldLeft<K>(init: K, folding: (acc: K, curr: _Tp) => K): K {
         let result = init;
         this.foreach( value => {
             result = folding(result, value)
@@ -255,7 +255,7 @@ class TreeSet<_Tp> implements Set<_Tp> {
         return result
     }
 
-    foldRight(init: _Tp, folding: (acc: _Tp, curr: _Tp) => _Tp): _Tp {
+    foldRight<K>(init: K, folding: (acc: K, curr: _Tp) => K): K {
         let result = init
         const buffer = new Array<_Tp>()
         this.foreach( value => {

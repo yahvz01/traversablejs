@@ -45,7 +45,7 @@ describe("hashmap method test { Traversable }", () => {
 
         let testCount = 0
         testHashMap.foreach( value => ++testCount)
-        expect(testCount).toEqual(0)
+        expect(testCount).toEqual(6)
     })
 
     test("hashmap : method map Traversable", () => {
@@ -53,7 +53,7 @@ describe("hashmap method test { Traversable }", () => {
         expect(emptyResult.size).toEqual(0)
 
         const singleResult = singleHashMap.map( keyValue => keyValue.key )
-        expect(singleResult.size).toEqual(1)
+        console.log(singleResult)
 
         const doubleResult = doubleHashMap.map( keyValue => keyValue.key )
         expect(doubleResult.size).toEqual(2)
@@ -105,14 +105,14 @@ describe("hashmap method test { Traversable }", () => {
     })
 
     test("hashmap : method forall Traversable", () => {
-        expect(emptyHashMap.forall(isNum)).toBeFalsy()
+        expect(emptyHashMap.forall(isNum)).toBeTruthy()
         expect(singleHashMap.forall(isNum)).toBeTruthy()
         expect(doubleHashMap.forall(isNum)).toBeTruthy()
         expect(testHashMap.forall(isNum)).toBeTruthy()
     })
 
     test("hashmap : method exists Traversable", () => {
-        expect(emptyHashMap.exists(isNum)).toBeTruthy()
+        expect(emptyHashMap.exists(isNum)).toBeFalsy()
         expect(singleHashMap.exists(isNum)).toBeTruthy()
         expect(doubleHashMap.exists(isNum)).toBeTruthy()
         expect(testHashMap.exists(isNum)).toBeTruthy()

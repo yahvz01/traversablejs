@@ -124,7 +124,7 @@ class Buffer<_Tp> implements MutableSeq<_Tp>{
 
     }
 
-    foldLeft(init: _Tp, folding: (acc: _Tp, curr: _Tp) => _Tp): _Tp {
+    foldLeft<K>(init: K, folding: (acc: K, curr: _Tp) => K): K {
         let result = init
         for(const value of this.buffer){
             result = folding(result, value)
@@ -132,7 +132,7 @@ class Buffer<_Tp> implements MutableSeq<_Tp>{
         return result
     }
 
-    foldRight(init: _Tp, folding: (acc: _Tp, curr: _Tp) => _Tp): _Tp {
+    foldRight<K>(init: K, folding: (acc: K, curr: _Tp) => K): K {
         let result = init
         for(const value of this.buffer.reverse()){
             result = folding(result, value)

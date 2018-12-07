@@ -199,7 +199,7 @@ class HashMap<_TpK, _TpV> implements Map<_TpK, _TpV> {
         return result
     }
 
-    foldLeft(init: MapTuple<_TpK, _TpV>, folding: (acc: MapTuple<_TpK, _TpV>, curr: MapTuple<_TpK, _TpV>) => MapTuple<_TpK, _TpV>): MapTuple<_TpK, _TpV> {
+    foldLeft<K>(init: K, folding: (acc: K, curr: MapTuple<_TpK, _TpV>) => K): K {
         let result = init
         this.foreach((keyValue) => {
             result = folding(result, keyValue)
@@ -207,7 +207,7 @@ class HashMap<_TpK, _TpV> implements Map<_TpK, _TpV> {
         return result;
     }
 
-    foldRight(init: MapTuple<_TpK, _TpV>, folding: (acc: MapTuple<_TpK, _TpV>, curr: MapTuple<_TpK, _TpV>) => MapTuple<_TpK, _TpV>): MapTuple<_TpK, _TpV> {
+    foldRight<K>(init: K, folding: (acc: K, curr: MapTuple<_TpK, _TpV>) => K): K {
         // Not different with foldLeft
         return this.foldLeft(init, folding);
     }
@@ -219,10 +219,12 @@ class HashMap<_TpK, _TpV> implements Map<_TpK, _TpV> {
     }
 
     map<K>(f: (e: MapTuple<_TpK, _TpV>) => K): Traversable<K> {
-        const result = Vector.of<K>()
+        const result = Buffer.of<K>()
         this.foreach((keyValue) => {
-            result.push(f(keyValue))
+            console.log("count")
+            result.push( f(keyValue) )
         })
+        console.log("inner Result : " + JSON.stringify(result))
         return result;
     }
 

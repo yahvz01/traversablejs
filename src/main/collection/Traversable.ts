@@ -37,8 +37,8 @@ interface Traversable<_Tp>{
     count( predicate : (e : _Tp) => boolean) : number
 
     // Folding
-    foldLeft(init: _Tp, folding : (acc : _Tp, curr : _Tp) => _Tp) : _Tp
-    foldRight(init: _Tp, folding : (acc : _Tp, curr : _Tp) => _Tp) : _Tp
+    foldLeft<K>(init: K, folding : (acc : K, curr : _Tp) => K) : K
+    foldRight<K>(init: K, folding : (acc : K, curr : _Tp) => K) : K
 }
 
 
