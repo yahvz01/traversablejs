@@ -2,9 +2,10 @@
 
 
 function hashCode(data : any, seed : number = 5381) : number {
-    const str = JSON.stringify(data);
-    let hash = seed,
-        i    = str.length;
+    let str = JSON.stringify(data)
+    if(str == undefined){ str = "{}"}
+    let hash = seed;
+    let i    = str.length
     while(i) {
         hash = (hash * 33) ^ str.charCodeAt(--i);
     }

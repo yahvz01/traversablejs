@@ -48,6 +48,8 @@ class HashMap<_TpK, _TpV> implements Map<_TpK, _TpV> {
     }
 
     get headOptional(): Optional<MapTuple<_TpK, _TpV>> {
+        if(this.size == 0)
+            return Optional.emptyOf()
         return Optional.of(
             this.apply(0)
         )
@@ -58,15 +60,20 @@ class HashMap<_TpK, _TpV> implements Map<_TpK, _TpV> {
         return this.apply(this.size - 1)
     }
     get lastOptional(): Optional<MapTuple<_TpK, _TpV>> {
+        if(this.size == 0)
+            return Optional.emptyOf()
         return Optional.of(this.apply(this.size - 1))
     }
 
     get tail(): Traversable<MapTuple<_TpK, _TpV>> {
-        return this.slice(1)
+        if(this.size <= 1)
+            return HashMap.of()
+        return this.slice(1, this.size)
     }
     get init(): Traversable<MapTuple<_TpK, _TpV>> {
-
-        return this.slice(0, this.size - 2)
+        if(this.size <= 1)
+            return HashMap.of()
+        return this.slice(0, this.size - 1)
     }
 
     hasDefiniteSize(): boolean {
@@ -223,19 +230,18 @@ class HashMap<_TpK, _TpV> implements Map<_TpK, _TpV> {
         return result;
     }
 
-    slice(from: number, until: number = (this.size - 1)): Traversable<MapTuple<_TpK, _TpV>> {
+    slice(from: number, until: number = this.size): Traversable<MapTuple<_TpK, _TpV>> {
         if(from > until)
             throw new RangeError("from index must be greater than to")
-        const result = HashMap.of<_TpK, _TpV>()
         const gen = Gen.until(from, until)
+        const buffer = new Array<MapTuple<_TpK, _TpV>>()
         let currIndex = 0
-
         for(const key of this.keySet){
             if(gen.contains(currIndex))
-                MapTuple.of(key, this.dataSet[hashCode(key)])
+                buffer.push(MapTuple.of(key, this.dataSet[hashCode(key)]))
             ++currIndex
         }
-        return result
+        return HashMap.of(...buffer)
     }
 
     take(index: number): Traversable<MapTuple<_TpK, _TpV>> {
@@ -275,7 +281,7 @@ class HashMap<_TpK, _TpV> implements Map<_TpK, _TpV> {
 
     private insertData<_TpKey, _TpValue>(data : MapTuple<_TpK, _TpV>, target : HashMap<_TpK, _TpV> = this) : void {
         target.keySet.push(data.key)
-        target.dataSet(hashCode(data.key), data.value)
+        target.dataSet[hashCode(data.key)] = data.value
     }
 
 }
