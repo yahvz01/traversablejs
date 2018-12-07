@@ -13,7 +13,7 @@ import { Vector } from "../../index"
 
 class HashMap<_TpK, _TpV> implements Map<_TpK, _TpV> {
 
-    private keySet : Array<_TpK> = []
+    private keySet : Array<_TpK>
     private dataSet : any = {}
 
     static of<_TpK, _TpV>(...data : MapTuple<_TpK, _TpV>[]) : HashMap<_TpK, _TpV>{
@@ -21,24 +21,20 @@ class HashMap<_TpK, _TpV> implements Map<_TpK, _TpV> {
     }
 
     private constructor(...data : MapTuple<_TpK, _TpV>[]){
+        this.keySet = new Array<_TpK>()
         data.forEach((value) => {
             this.insertData(value)
         })
     }
 
-    private apply(index : number) : MapTuple<_TpK, _TpV> {
-        return MapTuple.of(
-            this.keySet[index],
-            this.dataSet[hashCode(this.keySet[index])]
-        )
-    }
-
     private _size : number | null = null
     get size(): number {
-        if(this._size == null)
+        if(this._size == null){
             this._size = this.keySet.length
-        return this._size
+        }
+        return this._size as number;
     }
+
     get isEmpty(): boolean { return this.size == 0 }
 
     get head() : MapTuple<_TpK, _TpV> {
@@ -81,7 +77,7 @@ class HashMap<_TpK, _TpV> implements Map<_TpK, _TpV> {
     }
 
     get keys(): Traversable<_TpK> {
-        return (this.dataSet.keySet)
+        return Vector.of<_TpK>(...this.keySet)
     }
     get values(): Traversable<_TpV> {
         const result = Buffer.of<_TpV>()
@@ -258,6 +254,9 @@ class HashMap<_TpK, _TpV> implements Map<_TpK, _TpV> {
     }
 
     drop(index: number): Traversable<MapTuple<_TpK, _TpV>> {
+        if(index >= this.size){
+            return HashMap.of()
+        }
         return this.slice(index)
     }
 
@@ -282,6 +281,13 @@ class HashMap<_TpK, _TpV> implements Map<_TpK, _TpV> {
     private insertData<_TpKey, _TpValue>(data : MapTuple<_TpK, _TpV>, target : HashMap<_TpK, _TpV> = this) : void {
         target.keySet.push(data.key)
         target.dataSet[hashCode(data.key)] = data.value
+    }
+
+    private apply(index : number) : MapTuple<_TpK, _TpV> {
+        return MapTuple.of(
+            this.keySet[index],
+            this.dataSet[hashCode(this.keySet[index])]
+        )
     }
 
 }

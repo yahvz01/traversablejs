@@ -1,5 +1,6 @@
 
 import {HashMap, Traversable, tupleOf, MapTuple} from "../../../main"
+import Map from "../../../main/collection/immutable/Map"
 
 
 describe("Hash property test [Traversable]", () => {
@@ -117,6 +118,48 @@ describe("Hash property test [Traversable]", () => {
         expect(singleHashMap.init.size).toEqual(0)
         expect(doubleHashMap.init.size).toEqual(1)
         expect(testHashMap.init.size).toEqual(5)
+    })
+
+})
+
+
+describe("Hash property test [ Map]", () => {
+
+    let emptyHashMap: Map<number, string>
+    let singleHashMap: Map<number, string>
+    let doubleHashMap: Map<number, string>
+    let testHashMap: Map<number, string>
+
+    beforeEach(() => {
+        emptyHashMap = HashMap.of()
+        singleHashMap = HashMap.of(tupleOf(111, "111a"))
+        doubleHashMap = HashMap.of(
+            tupleOf(95, "95a"),
+            tupleOf(200, "200a")
+        )
+        testHashMap = HashMap.of(
+            tupleOf(1, "1a"),
+            tupleOf(2, "2a"),
+            tupleOf(3, "3a"),
+            tupleOf(4, "4a"),
+            tupleOf(5, "5a"),
+            tupleOf(6, "6a")
+        )
+    })
+
+    test("hashmap : property keys { Map }", () => {
+        //console.log(emptyHashMap.keys.size)
+        expect(emptyHashMap.keys.size).toEqual(0)
+        expect(singleHashMap.keys.size).toEqual(1)
+        expect(doubleHashMap.keys.size).toEqual(2)
+        expect(testHashMap.keys.size).toEqual(6)
+    })
+
+    test("hashmap : property values { Map }", () => {
+        expect(emptyHashMap.values.size).toEqual(0)
+        expect(singleHashMap.values.size).toEqual(1)
+        expect(doubleHashMap.values.size).toEqual(2)
+        expect(testHashMap.values.size).toEqual(6)
     })
 
 })
