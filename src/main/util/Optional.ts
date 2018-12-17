@@ -27,6 +27,12 @@ class Optional<_Tp> {
         else
             return this.data as _Tp
     }
+    public getOrElseByLazy( defaultData : () => _Tp ) : _Tp {
+        if(!this.isPresent(this.data))
+            return defaultData()
+        else
+            return this.data as _Tp
+    }
     public ifPresent( consumer : (value : _Tp | null ) => void ) : void {
         if(!this.isPresent(this.data)){
             consumer(this.data)

@@ -6,6 +6,20 @@ Generic collection library, written by Typescript
  [npm][npm-url]
  
 
+## Version Info
+
+Do not use less than 0.4 version for production level
+
+
+| version |                    goals                   |
+|:-------:|:------------------------------------------:|
+|   0.1   | Scala Traversable Temporary implementation |
+|   0.2   |     "immutable Collection" Optimization    |
+|   0.3   |  Javascript Native Iterable implementation |
+|   0.4   |    Optimization as Functional Collection   |
+|   0.5   |    Production Level ( production level )   |
+ 
+
 in JavaScript
 in TypeScript
 ```ts
@@ -312,6 +326,8 @@ private constructor
 public get(): _Tp 
 
 public getOrElse( defaultData : _Tp ) : _Tp
+
+public getOrElseByLazy( defaultData : () => _Tp ) : _Tp
 
 public ifPresent( consumer : (value : _Tp | null ) => void ) : void
 

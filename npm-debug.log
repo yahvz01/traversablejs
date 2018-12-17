@@ -1,0 +1,38 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/bin/node', '/usr/bin/npm', 'publish' ]
+2 info using npm@3.5.2
+3 info using node@v8.10.0
+4 verbose publish [ '.' ]
+5 silly cache add args [ '.', null ]
+6 verbose cache add spec .
+7 silly cache add parsed spec Result {
+7 silly cache add   raw: '.',
+7 silly cache add   scope: null,
+7 silly cache add   name: null,
+7 silly cache add   rawSpec: '.',
+7 silly cache add   spec: '/home/devtop/code/ts/traversablejs',
+7 silly cache add   type: 'directory' }
+8 verbose addLocalDirectory /home/devtop/.npm/traversable/0.2.9/package.tgz not in flight; packing
+9 info lifecycle traversable@0.2.9~prepublish: traversable@0.2.9
+10 silly lifecycle traversable@0.2.9~prepublish: no script for prepublish, continuing
+11 verbose tar pack [ '/home/devtop/.npm/traversable/0.2.9/package.tgz',
+11 verbose tar pack   '/home/devtop/code/ts/traversablejs' ]
+12 verbose tarball /home/devtop/.npm/traversable/0.2.9/package.tgz
+13 verbose folder /home/devtop/code/ts/traversablejs
+14 error tar pack Error reading /home/devtop/code/ts/traversablejs
+15 error addLocalDirectory Could not pack /home/devtop/code/ts/traversablejs to /home/devtop/.npm/traversable/0.2.9/package.tgz
+16 error addLocal Could not install /home/devtop/code/ts/traversablejs
+17 verbose stack Error: EISDIR: illegal operation on a directory, read
+18 verbose cwd /home/devtop/code/ts/traversablejs
+19 error Linux 4.15.0-42-generic
+20 error argv "/usr/bin/node" "/usr/bin/npm" "publish"
+21 error node v8.10.0
+22 error npm  v3.5.2
+23 error code EISDIR
+24 error errno -21
+25 error syscall read
+26 error eisdir EISDIR: illegal operation on a directory, read
+27 error eisdir This is most likely not a problem with npm itself
+27 error eisdir and is related to npm not being able to find a package.json in
+27 error eisdir a package you are trying to install.
+28 verbose exit [ -21, true ]
