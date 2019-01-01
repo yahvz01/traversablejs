@@ -2,8 +2,8 @@
     MutableQueue (Adaptor) test
  */
 
-import {BufferedQueue, MutableQueue} from "../../../main/collection/mutable/adapter/Queue"
-import {mutableQueueOf} from "../../../main"
+
+import {BufferedQueue, MutableQueue, mutableQueueOf} from "../../../main"
 
 describe('MutableQueue (Adaptor) property test', () => {
 
@@ -13,7 +13,7 @@ describe('MutableQueue (Adaptor) property test', () => {
     let multiQueue : MutableQueue<number>
 
     beforeEach(() => {
-        emptyQueue = mutableQueueOf<number>()
+        emptyQueue = mutableQueueOf()
         singleQueue = mutableQueueOf(111)
         doubleQueue = mutableQueueOf(95, 200)
         multiQueue = mutableQueueOf(1, 2, 3, 4, 5, 6)
@@ -86,9 +86,9 @@ describe('MutableQueue (Adaptor) method test', () => {
 
     beforeEach(() => {
         emptyQueue = BufferedQueue.of<number>()
-        singleQueue = mutableQueueOf(111)
-        doubleQueue = mutableQueueOf(95, 200)
-        multiQueue = mutableQueueOf(1, 2, 3, 4, 5, 6)
+        singleQueue = BufferedQueue.of(111)
+        doubleQueue = BufferedQueue.of(95, 200)
+        multiQueue = BufferedQueue.of(1, 2, 3, 4, 5, 6)
     })
 
     test("method : enqueue", () => {

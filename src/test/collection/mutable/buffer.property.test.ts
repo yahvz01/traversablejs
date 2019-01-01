@@ -82,4 +82,30 @@ describe("Buffer property test [Traversable]", () => {
         expect(doubleBuffer.init.size).toEqual(1)
         expect(multiBuffer.init.size).toEqual(5)
     })
+
+    test("buffer : Symbol.iterator { Traversable }", () => {
+        let resultArray = [];
+        for(const el of emptyBuffer){
+            resultArray.push(el)
+        }
+        expect(emptyBuffer.size).toEqual(resultArray.length);
+
+        resultArray = [];
+        for(const el of singleBuffer){
+            resultArray.push(el)
+        }
+        expect(singleBuffer.size).toEqual(resultArray.length)
+
+        resultArray = [];
+        for(const el of doubleBuffer){
+            resultArray.push(el)
+        }
+        expect(doubleBuffer.size).toEqual(resultArray.length)
+
+        resultArray = [];
+        for(const el of multiBuffer){
+            resultArray.push(el)
+        }
+        expect(multiBuffer.size).toEqual(resultArray.length)
+    })
 })

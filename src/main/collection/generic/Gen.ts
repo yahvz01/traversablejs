@@ -1,5 +1,6 @@
+import {iteratorResultOf} from "../index"
 
-class Gen {
+class Gen implements Iterable<number> {
 
     static to(from : number, to : number) : Gen {
         return Gen.until(from, to + 1)
@@ -29,12 +30,41 @@ class Gen {
         return result
     }
 
+    [Symbol.iterator](): Iterator<number> {
+        return new GenIterator(this, this.from, this.until);
+    }
+
+
+
     public contains ( index : number ) : boolean {
         if(index >= this.from && index < this.until){
             return true
         }
         return false
     }
+}
+
+class GenIterator implements Iterator<number> {
+
+    private currIndex : number;
+
+    constructor(private gen : Gen, from : number, private until : number){
+        this.currIndex = from;
+    }
+
+    next(value? : number): IteratorResult<number> {
+
+        if(this.currIndex < this.until){
+            return iteratorResultOf<number>(false, this.currIndex++);
+        } else if(value != null){
+            return iteratorResultOf<number>(true, value);
+        } else {
+            return iteratorResultOf<number>(true);
+        }
+    }
+
+
+
 }
 
 export default Gen

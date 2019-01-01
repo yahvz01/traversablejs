@@ -81,4 +81,30 @@ describe("Vector implements Traversable only property", () => {
     test("vector tail Empty", () => {
         expect(emptyVector.tail).toEqual(Vector.of())
     })
+
+    test("vector : Symbol.iterator { Traversable }", () => {
+        let resultArray = [];
+        for(const el of emptyVector){
+            resultArray.push(el)
+        }
+        expect(emptyVector.size).toEqual(resultArray.length);
+
+        resultArray = [];
+        for(const el of singleVector){
+            resultArray.push(el)
+        }
+        expect(singleVector.size).toEqual(resultArray.length)
+
+        resultArray = [];
+        for(const el of doubleVector){
+            resultArray.push(el)
+        }
+        expect(doubleVector.size).toEqual(resultArray.length)
+
+        resultArray = [];
+        for(const el of multiVector){
+            resultArray.push(el)
+        }
+        expect(multiVector.size).toEqual(resultArray.length)
+    })
 });

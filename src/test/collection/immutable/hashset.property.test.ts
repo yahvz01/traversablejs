@@ -88,4 +88,25 @@ describe('hashset property', function () {
         expect(singleHashSet.init.size).toEqual(0)
         expect(emptyHashSet.size).toEqual(0)
     })
+
+
+    test("Set : Symbol.iterator { Traversable }", () => {
+        let resultArray = [];
+        for(const el of emptyHashSet){
+            resultArray.push(el)
+        }
+        expect(emptyHashSet.size).toEqual(resultArray.length);
+
+        resultArray = [];
+        for(const el of singleHashSet){
+            resultArray.push(el)
+        }
+        expect(singleHashSet.size).toEqual(resultArray.length)
+
+        resultArray = [];
+        for(const el of testHashSet){
+            resultArray.push(el)
+        }
+        expect(testHashSet.size).toEqual(resultArray.length)
+    })
 })

@@ -215,4 +215,5 @@ describe('hashset:Set property', () => {
         expect(emptyHashSet.retain(evenNumberPredicateFunction)).toEqual(HashSet.of())
 
     })
+
 })

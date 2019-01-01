@@ -1,4 +1,4 @@
-import Traversable from "./Traversable"
+import Traversable, { Iterable, Iterator, iteratorResultOf } from "./Traversable"
 
 import {
     Buffer, MutableStack, BufferedStack, MutableQueue, BufferedQueue
@@ -11,6 +11,7 @@ import { Gen, MapTuple, hashCode, deepCopy } from "./generic"
 
 export {
     Traversable, // traverable
+    Iterable, Iterator, iteratorResultOf,
     Gen, MapTuple, hashCode, deepCopy, // generic
     Seq, Set, Map,
     List,

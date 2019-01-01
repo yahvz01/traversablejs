@@ -8,16 +8,18 @@ Generic collection library, written by Typescript
 
 ## Version Info
 
-Do not use less than 0.4 version for production level
+ES5 target => 0.2.x;
+
+ES6 target => 0.3.x, 0.4.x, 0.5.x;
 
 
-| version |                    goals                   |
-|:-------:|:------------------------------------------:|
-|   0.1   | Scala Traversable Temporary implementation |
-|   0.2   |     "immutable Collection" Optimization    |
-|   0.3   |  Javascript Native Iterable implementation |
-|   0.4   |    Optimization as Functional Collection   |
-|   0.5   |    Production Level ( production level )   |
+| version |                     goals                    |
+|:-------:|:--------------------------------------------:|
+|   0.1   |       Scala Traversable implementation       |
+|   0.2   |      "immutable Collection" Optimization     |
+|   0.3   | Functional & JS Iterable / Iterator Protocol |
+|   0.4   |     Optimization as Functional Collection    |
+|   0.5   |     Production Level ( production level )    |
  
 
 in JavaScript
@@ -133,6 +135,8 @@ tail : Traversable<_Tp>
 init : Traversable<_Tp>
 
 foreach( consumer : ( e : _Tp) => (void)) : void
+[Symbol.iterator]() : Iterator<_Tp>
+
 
 // Mapping
 map<K>(f : (e : _Tp) => K) : Traversable<K>
@@ -155,6 +159,25 @@ foldLeft<K>(init: K, folding : (acc : K, curr : _Tp) => K) : K
 foldRight<K>(init: K, folding : (acc : K, curr : _Tp) => K) : K
 
 ```
+
+#### Interface Iterator<_Tp>, Interface Iterator<_Tp> (not JavaScript)
+
+this is for Javascript iterable / iterator protocol ( for .. of, spread operator )
+
+```ts
+interface Iterator<_Tp> {
+    next(value?: any): IteratorResult<_Tp>;
+    return?(value?: any): IteratorResult<_Tp>;
+    throw?(e?: any): IteratorResult<_Tp>;
+}
+
+interface IteratorResult<_Tp> {
+    done : boolean;
+    value : _Tp | undefined
+}
+
+```
+
 
 
 #### Interface Seq { Vector / List }
@@ -331,7 +354,7 @@ public getOrElseByLazy( defaultData : () => _Tp ) : _Tp
 
 public ifPresent( consumer : (value : _Tp | null ) => void ) : void
 
-public isPresent( data : _Tp | null ): boolean 
+public isPresent(): boolean 
 
 ```
 

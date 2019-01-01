@@ -16,30 +16,30 @@ class Optional<_Tp> {
     }
 
     public get(): _Tp {
-        if(!this.isPresent(this.data)){
+        if(!this.isPresent()){
             throw new Error("IllegalException");
         }
         return this.data as _Tp
     }
     public getOrElse( defaultData : _Tp ) : _Tp {
-        if(!this.isPresent(this.data))
+        if(!this.isPresent())
             return defaultData
         else
             return this.data as _Tp
     }
     public getOrElseByLazy( defaultData : () => _Tp ) : _Tp {
-        if(!this.isPresent(this.data))
+        if(!this.isPresent())
             return defaultData()
         else
             return this.data as _Tp
     }
     public ifPresent( consumer : (value : _Tp | null ) => void ) : void {
-        if(!this.isPresent(this.data)){
+        if(!this.isPresent()){
             consumer(this.data)
         }
     }
-    public isPresent( data : _Tp | null ): boolean {
-        if(this.data == undefined || this.data == null) {
+    public isPresent(): boolean {
+        if(this.data == null || this.data == undefined ) {
             return false;
         } else {
             return true;

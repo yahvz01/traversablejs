@@ -1,6 +1,6 @@
 import Map from "../../Map"
 import MapTuple from "../../../generic/MapTuple"
-import Traversable from "../../../Traversable"
+import Traversable, {Iterator, iteratorResultOf} from "../../../Traversable"
 
 import { hashCode }  from "../../../generic/index"
 
@@ -292,6 +292,29 @@ class HashMap<_TpK, _TpV> implements Map<_TpK, _TpV> {
         )
     }
 
+    [Symbol.iterator](): Iterator<MapTuple<_TpK, _TpV>> {
+        return new HashMapIterator(this);
+    }
 }
+
+class HashMapIterator<_Tp> implements Iterator<_Tp> {
+
+    constructor( private dataSource : Traversable<_Tp> ) {
+
+    }
+    next(value?: _Tp): IteratorResult<_Tp> {
+        if(this.dataSource.headOptional.isPresent()){
+            const result = this.dataSource.head;
+            this.dataSource = this.dataSource.tail;
+            return iteratorResultOf(false, result);
+        } else if(value != null){
+            return iteratorResultOf(true, value);
+        } else {
+            return iteratorResultOf(true);
+        }
+    }
+}
+
+
 
 export default HashMap

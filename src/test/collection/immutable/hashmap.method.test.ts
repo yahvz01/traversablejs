@@ -1,7 +1,6 @@
 import Traversable from "../../../main/collection/Traversable"
 import MapTuple from "../../../main/collection/generic/MapTuple"
 import HashMap from "../../../main/collection/immutable/map/hashmap/HashMap"
-import {tupleOf} from "../../../main"
 
 
 describe("hashmap method test { Traversable }", () => {
@@ -16,18 +15,18 @@ describe("hashmap method test { Traversable }", () => {
 
     beforeEach(() => {
         emptyHashMap = HashMap.of()
-        singleHashMap = HashMap.of(tupleOf(111, "111a"))
+        singleHashMap = HashMap.of( MapTuple.of(111, "111a") )
         doubleHashMap = HashMap.of(
-            tupleOf(95, "95a"),
-            tupleOf(200, "200a")
+            MapTuple.of(95, "95a"),
+            MapTuple.of(200, "200a")
         )
         testHashMap = HashMap.of(
-            tupleOf(1, "1a"),
-            tupleOf(2, "2a"),
-            tupleOf(3, "3a"),
-            tupleOf(4, "4a"),
-            tupleOf(5, "5a"),
-            tupleOf(6, "6a")
+            MapTuple.of(1, "1a"),
+            MapTuple.of(2, "2a"),
+            MapTuple.of(3, "3a"),
+            MapTuple.of(4, "4a"),
+            MapTuple.of(5, "5a"),
+            MapTuple.of(6, "6a")
         )
     })
     test("hashmap : method foreach Traversable", () => {
@@ -148,18 +147,18 @@ describe("hashmap method test { Map }", () => {
 
     beforeEach(() => {
         emptyHashMap = HashMap.of()
-        singleHashMap = HashMap.of(tupleOf(111, "111a"))
+        singleHashMap = HashMap.of(MapTuple.of(111, "111a"))
         doubleHashMap = HashMap.of(
-            tupleOf(95, "95a"),
-            tupleOf(200, "200a")
+            MapTuple.of(95, "95a"),
+            MapTuple.of(200, "200a")
         )
         testHashMap = HashMap.of(
-            tupleOf(1, "1a"),
-            tupleOf(2, "2a"),
-            tupleOf(3, "3a"),
-            tupleOf(4, "4a"),
-            tupleOf(5, "5a"),
-            tupleOf(6, "6a")
+            MapTuple.of(1, "1a"),
+            MapTuple.of(2, "2a"),
+            MapTuple.of(3, "3a"),
+            MapTuple.of(4, "4a"),
+            MapTuple.of(5, "5a"),
+            MapTuple.of(6, "6a")
         )
     })
 

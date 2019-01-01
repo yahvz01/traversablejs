@@ -1,4 +1,5 @@
 import {Optional, Set, Traversable} from "../../../../../main"
+import {Iterator, iteratorResultOf} from "../../../Traversable"
 
 
 
@@ -323,7 +324,31 @@ class TreeSet<_Tp> implements Set<_Tp> {
             return false
         }
     }
+
+    [Symbol.iterator](): Iterator<_Tp> {
+        return new HashSetIterator(this);
+    }
 }
+
+
+class HashSetIterator<_Tp> implements Iterator<_Tp> {
+
+    constructor( private dataSource : Traversable<_Tp> ) {
+
+    }
+    next(value?: _Tp): IteratorResult<_Tp> {
+        if(this.dataSource.headOptional.isPresent()){
+            const result = this.dataSource.head;
+            this.dataSource = this.dataSource.tail;
+            return iteratorResultOf(false, result);
+        } else if(value != null){
+            return iteratorResultOf(true, value);
+        } else {
+            return iteratorResultOf(true);
+        }
+    }
+}
+
 
 class TreeNode<_Tp>{
 
@@ -375,6 +400,5 @@ class TreeNode<_Tp>{
     }
     get hasRight() : boolean { return this._right != null }
 }
-
 
 export default TreeSet;

@@ -1,6 +1,6 @@
 import LinearSeq from "../LinearSeq"
 import Optional from "../../../../util/Optional"
-import Traversable from "../../../Traversable"
+import Traversable, {Iterator, iteratorResultOf} from "../../../Traversable"
 import Gen from "../../../generic/Gen"
 import Seq from "../../Seq"
 
@@ -328,6 +328,27 @@ class List<_Tp> implements LinearSeq<_Tp> {
             this._last = newNode
         }
         ++this._size
+    }
+
+    [Symbol.iterator](): Iterator<_Tp> {
+        return new ListIterator(this);
+    }
+}
+
+class ListIterator<_Tp> implements Iterator<_Tp>{
+
+    constructor(private dataSource : Traversable<_Tp>){ }
+    next(value?: _Tp): IteratorResult<_Tp> {
+        if(this.dataSource.headOptional.isPresent()){
+            const result = this.dataSource.head;
+            this.dataSource = this.dataSource.tail;
+            return iteratorResultOf(false, result)
+        } else if(value != null){
+            return iteratorResultOf(true, value);
+        } else {
+            return iteratorResultOf(true);
+        }
+
     }
 }
 

@@ -1,5 +1,5 @@
 
-import Traversable from "../../../Traversable"
+import Traversable, {Iterator, iteratorResultOf} from "../../../Traversable"
 import Optional from "../../../../util/Optional"
 import Gen from "../../../generic/Gen"
 import Set from "../../Set"
@@ -291,6 +291,29 @@ class HashSet<_Tp> implements Set<_Tp> {
         }
         return false
     }
+
+    [Symbol.iterator](): Iterator<_Tp> {
+        return new HashSetIterator(this);
+    }
 }
+
+class HashSetIterator<_Tp> implements Iterator<_Tp> {
+
+    constructor( private dataSource : Traversable<_Tp> ) {
+
+    }
+    next(value?: _Tp): IteratorResult<_Tp> {
+        if(this.dataSource.headOptional.isPresent()){
+            const result = this.dataSource.head;
+            this.dataSource = this.dataSource.tail;
+            return iteratorResultOf(false, result);
+        } else if(value != null){
+            return iteratorResultOf(true, value);
+        } else {
+            return iteratorResultOf(true);
+        }
+    }
+}
+
 
 export default HashSet

@@ -3,8 +3,8 @@ import { Gen } from "../../../main"
 
 describe("Range types Verification", () => {
 
-    let zeroUntilTen : Gen
-    let zeroToTen : Gen
+    let zeroUntilTen: Gen
+    let zeroToTen: Gen
 
     beforeEach(() => {
         zeroUntilTen = Gen.until(0, 10);
@@ -28,11 +28,27 @@ describe("Range types Verification", () => {
         expect(zeroToTen.size).toEqual(11)
     })
 
-    test("method : toIter", () => {
+    test("method : iterator", () => {
         const zeroUntilTenArray = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
         const zeroToTenArray = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
         expect(zeroUntilTen.iterator).toEqual(zeroUntilTenArray)
         expect(zeroToTen.iterator).toEqual(zeroToTenArray)
+    })
+
+    test("method : ES6 Iterator test", () => {
+        const zeroUntilTenArray = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+        const zeroToTenArray = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+        let count = 0;
+        for(const el of zeroUntilTen){
+            expect(el).toEqual(zeroUntilTenArray[count])
+            ++count;
+        }
+        count = 0;
+        for(const el of zeroToTen){
+            expect(el).toEqual(zeroToTenArray[count])
+            ++count;
+        }
     })
 
     test("method : contains", () => {

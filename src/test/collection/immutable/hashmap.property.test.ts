@@ -1,6 +1,5 @@
 
-import {HashMap, Traversable, tupleOf, MapTuple} from "../../../main"
-import Map from "../../../main/collection/immutable/Map"
+import {HashMap, Traversable, MapTuple} from "../../../main"
 
 
 describe("Hash property test [Traversable]", () => {
@@ -12,18 +11,18 @@ describe("Hash property test [Traversable]", () => {
 
     beforeEach(() => {
         emptyHashMap = HashMap.of()
-        singleHashMap = HashMap.of(tupleOf(111, "111a"))
+        singleHashMap = HashMap.of(MapTuple.of(111, "111a"))
         doubleHashMap = HashMap.of(
-            tupleOf(95, "95a"),
-            tupleOf(200, "200a")
+            MapTuple.of(95, "95a"),
+            MapTuple.of(200, "200a")
         )
         testHashMap = HashMap.of(
-            tupleOf(1, "1a"),
-            tupleOf(2, "2a"),
-            tupleOf(3, "3a"),
-            tupleOf(4, "4a"),
-            tupleOf(5, "5a"),
-            tupleOf(6, "6a")
+            MapTuple.of(1, "1a"),
+            MapTuple.of(2, "2a"),
+            MapTuple.of(3, "3a"),
+            MapTuple.of(4, "4a"),
+            MapTuple.of(5, "5a"),
+            MapTuple.of(6, "6a")
         )
     })
 
@@ -60,11 +59,11 @@ describe("Hash property test [Traversable]", () => {
 
     test("hashmap : property headOptional { Traversable }", () => {
         expect(() => emptyHashMap.headOptional.get()).toThrowError()
-        expect(emptyHashMap.headOptional.getOrElse(tupleOf(-1, "-1a")).key).toEqual(-1)
+        expect(emptyHashMap.headOptional.getOrElse(MapTuple.of(-1, "-1a")).key).toEqual(-1)
 
         expect(() => singleHashMap.headOptional.get()).not.toThrowError()
         expect(singleHashMap.headOptional.get().key).toEqual(111)
-        expect(singleHashMap.headOptional.getOrElse(tupleOf(-1, "-1a")).key).toEqual(111)
+        expect(singleHashMap.headOptional.getOrElse(MapTuple.of(-1, "-1a")).key).toEqual(111)
 
         expect(() => doubleHashMap.headOptional.get()).not.toThrowError()
         //expect(doubleHashMap.headOptional.get().key).or
@@ -90,7 +89,7 @@ describe("Hash property test [Traversable]", () => {
 
     test("hashmap : property lastOptional { Traversable }", () => {
         expect(() => emptyHashMap.lastOptional.get()).toThrowError()
-        expect(emptyHashMap.lastOptional.getOrElse(tupleOf(-1, "-1a")).key).toEqual(-1)
+        expect(emptyHashMap.lastOptional.getOrElse(MapTuple.of(-1, "-1a")).key).toEqual(-1)
 
         expect(() => singleHashMap.lastOptional.get()).not.toThrowError()
         //expect(singleHashMap.lastOptional.get()).toEqual(111)
@@ -120,30 +119,55 @@ describe("Hash property test [Traversable]", () => {
         expect(testHashMap.init.size).toEqual(5)
     })
 
+    test("hashmap : Symbol.iterator { Traversable }", () => {
+        let resultArray = [];
+        for(const el of emptyHashMap){
+            resultArray.push(el)
+        }
+        expect(emptyHashMap.size).toEqual(resultArray.length);
+
+        resultArray = [];
+        for(const el of singleHashMap){
+            resultArray.push(el)
+        }
+        expect(singleHashMap.size).toEqual(resultArray.length)
+
+        resultArray = [];
+        for(const el of doubleHashMap){
+            resultArray.push(el)
+        }
+        expect(doubleHashMap.size).toEqual(resultArray.length)
+
+        resultArray = [];
+        for(const el of testHashMap){
+            resultArray.push(el)
+        }
+        expect(testHashMap.size).toEqual(resultArray.length)
+    })
 })
 
 
 describe("Hash property test [ Map]", () => {
 
-    let emptyHashMap: Map<number, string>
-    let singleHashMap: Map<number, string>
-    let doubleHashMap: Map<number, string>
-    let testHashMap: Map<number, string>
+    let emptyHashMap: HashMap<number, string>
+    let singleHashMap: HashMap<number, string>
+    let doubleHashMap: HashMap<number, string>
+    let testHashMap: HashMap<number, string>
 
     beforeEach(() => {
         emptyHashMap = HashMap.of()
-        singleHashMap = HashMap.of(tupleOf(111, "111a"))
+        singleHashMap = HashMap.of(MapTuple.of(111, "111a"))
         doubleHashMap = HashMap.of(
-            tupleOf(95, "95a"),
-            tupleOf(200, "200a")
+            MapTuple.of(95, "95a"),
+            MapTuple.of(200, "200a")
         )
         testHashMap = HashMap.of(
-            tupleOf(1, "1a"),
-            tupleOf(2, "2a"),
-            tupleOf(3, "3a"),
-            tupleOf(4, "4a"),
-            tupleOf(5, "5a"),
-            tupleOf(6, "6a")
+            MapTuple.of(1, "1a"),
+            MapTuple.of(2, "2a"),
+            MapTuple.of(3, "3a"),
+            MapTuple.of(4, "4a"),
+            MapTuple.of(5, "5a"),
+            MapTuple.of(6, "6a")
         )
     })
 

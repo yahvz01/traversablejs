@@ -1,6 +1,10 @@
+import {Iterator, iteratorResultOf} from "../../../index"
 import IndexedSeq from "../IndexedSeq"
 import Seq from "../../Seq"
 import {Gen, Optional, Traversable} from "../../../../index"
+
+
+
 
 class Vector<_Tp> implements IndexedSeq<_Tp>{
 
@@ -10,6 +14,7 @@ class Vector<_Tp> implements IndexedSeq<_Tp>{
     static of<_Tp>( ...data :_Tp[]) : Vector<_Tp> {
         return new Vector<_Tp>(...data)
     }
+
 
     constructor( ...data :_Tp[]){
         this.dataSet = data
@@ -224,6 +229,30 @@ class Vector<_Tp> implements IndexedSeq<_Tp>{
         result.dataSet = this.dataSet.slice(start, end)
         return result
     }
+
+    [Symbol.iterator](): Iterator<_Tp> {
+        return new VectorIterator(this.dataSet, this.size)
+    }
+}
+
+class VectorIterator<_Tp> implements Iterator<_Tp>{
+
+    private currIndex : number;
+    constructor(private dataSource : Array<_Tp>, private size : number){
+        this.currIndex = 0;
+    }
+
+    next(value?: _Tp): IteratorResult<_Tp> {
+        if(this.currIndex < this.size){
+            const value = this.dataSource[this.currIndex++];
+            return iteratorResultOf(false, value);
+        } else if(value != null){
+            return iteratorResultOf(true, value);
+        } else {
+            return iteratorResultOf(true);
+        }
+    }
+
 }
 
 export default Vector;

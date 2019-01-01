@@ -107,4 +107,30 @@ describe("List property test [Traversable]", () => {
         expect(multiList.init.init.size).toEqual(4)
         expect(multiList.init.size).toEqual(5)
     })
+
+    test("List : Symbol.iterator { Traversable }", () => {
+        let resultArray = [];
+        for(const el of emptyList){
+            resultArray.push(el)
+        }
+        expect(emptyList.size).toEqual(resultArray.length);
+
+        resultArray = [];
+        for(const el of singleList){
+            resultArray.push(el)
+        }
+        expect(singleList.size).toEqual(resultArray.length)
+
+        resultArray = [];
+        for(const el of doubleList){
+            resultArray.push(el)
+        }
+        expect(doubleList.size).toEqual(resultArray.length)
+
+        resultArray = [];
+        for(const el of multiList){
+            resultArray.push(el)
+        }
+        expect(multiList.size).toEqual(resultArray.length)
+    })
 })

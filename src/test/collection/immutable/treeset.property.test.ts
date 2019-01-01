@@ -122,4 +122,29 @@ describe("Treeset property test [Traversable]", () => {
         expect(testTreeSet.init.size).toEqual(5)
     })
 
+    test("treeset : Symbol.iterator { Traversable }", () => {
+        let resultArray = [];
+        for(const el of emptyTreeSet){
+            resultArray.push(el)
+        }
+        expect(emptyTreeSet.size).toEqual(resultArray.length);
+
+        resultArray = [];
+        for(const el of singleTreeSet){
+            resultArray.push(el)
+        }
+        expect(singleTreeSet.size).toEqual(resultArray.length)
+
+        resultArray = [];
+        for(const el of doubleTreeSet){
+            resultArray.push(el)
+        }
+        expect(doubleTreeSet.size).toEqual(resultArray.length)
+
+        resultArray = [];
+        for(const el of testTreeSet){
+            resultArray.push(el)
+        }
+        expect(testTreeSet.size).toEqual(resultArray.length)
+    })
 })
