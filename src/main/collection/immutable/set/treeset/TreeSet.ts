@@ -347,6 +347,9 @@ class HashSetIterator<_Tp> implements Iterator<_Tp> {
             return iteratorResultOf(true);
         }
     }
+    [Symbol.iterator](): Iterator<_Tp>{
+        return this;
+    }
 }
 
 

@@ -50,6 +50,7 @@ export interface Iterator<_Tp> {
     next(value?: _Tp): IteratorResult<_Tp>;
     return?(value: _Tp): IteratorResult<_Tp>;
     throw?(e: _Tp): IteratorResult<_Tp>;
+    [Symbol.iterator]?() : Iterator<_Tp>;
 }
 
 

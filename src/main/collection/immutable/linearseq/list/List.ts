@@ -348,7 +348,9 @@ class ListIterator<_Tp> implements Iterator<_Tp>{
         } else {
             return iteratorResultOf(true);
         }
-
+    }
+    [Symbol.iterator](): Iterator<_Tp>{
+        return this;
     }
 }
 

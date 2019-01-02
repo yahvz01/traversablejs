@@ -253,6 +253,9 @@ class VectorIterator<_Tp> implements Iterator<_Tp>{
         }
     }
 
+    [Symbol.iterator](): Iterator<_Tp>{
+        return this;
+    }
 }
 
 export default Vector;

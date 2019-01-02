@@ -1,7 +1,7 @@
 
 import {
     Traversable, // traverable
-    Gen, MapTuple, hashCode, deepCopy, // generic
+    Gen, MapTuple, Stream, hashCode, deepCopy, // generic
     Seq, Set, Map,
     List,
     Vector, HashSet, HashMap, TreeSet,// immutable
@@ -43,7 +43,7 @@ function tupleOf<_TpK, _TpV>(key : _TpK, value : _TpV) : MapTuple<_TpK, _TpV>{
 export {
     Traversable, // traverable
     Seq, Set, Map,
-    Gen, MapTuple, hashCode, deepCopy, // generic
+    Gen, MapTuple, Stream, hashCode, deepCopy, // generic
     Vector, HashSet, HashMap, List, TreeSet,// immutable
     listOf, seqOf, setOf, mapOf, tupleOf,// immutable Helper function
     Buffer, MutableStack, BufferedStack, MutableQueue, BufferedQueue,  // mutable

@@ -62,9 +62,9 @@ class GenIterator implements Iterator<number> {
             return iteratorResultOf<number>(true);
         }
     }
-
-
-
+    [Symbol.iterator](): Iterator<number>{
+        return this;
+    }
 }
 
 export default Gen

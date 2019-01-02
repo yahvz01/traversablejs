@@ -7,12 +7,12 @@ import {
     Seq, Set, Map,
     List,
     Vector, HashSet, HashMap, TreeSet } from "./immutable"
-import { Gen, MapTuple, hashCode, deepCopy } from "./generic"
+import { Gen, MapTuple, Stream, hashCode, deepCopy } from "./generic"
 
 export {
     Traversable, // traverable
     Iterable, Iterator, iteratorResultOf,
-    Gen, MapTuple, hashCode, deepCopy, // generic
+    Gen, MapTuple, Stream, hashCode, deepCopy, // generic
     Seq, Set, Map,
     List,
     Vector, HashSet, HashMap, TreeSet, // immutable
