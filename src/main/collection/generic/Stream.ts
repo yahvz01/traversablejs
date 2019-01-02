@@ -7,11 +7,11 @@ class Stream<_Tp> {
         return new Stream(inital, generator, limiter);
     }
 
-    private constructor(private initial : _Tp, private generator : (e :_Tp) => _Tp, private limiter : (e : _Tp) => boolean = null){
+    private constructor(private initial : _Tp, private generator : (e :_Tp) => _Tp, private limiter : (e : _Tp) => boolean | null = null){
         function *gen(){
             while(true){
                 initial = generator(initial);
-                if(limiter != null || limiter(initial)){
+                if(limiter != null && !limiter(initial)){
                     return initial
                 }
                 yield initial;
@@ -29,6 +29,10 @@ class Stream<_Tp> {
         while(true){
             this.initial = yield this.generator(this.initial);
         }
+    }
+
+    get hasLimiter() : boolean {
+        return this.limiter != null;
     }
 }
 

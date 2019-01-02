@@ -358,6 +358,30 @@ public isPresent(): boolean
 
 ```
 
+#### class Stream<_Tp> 
+
+```ts
+const {  Stream  } = require(“traversable”)
+// import { Stream } from "traversable"
+```
+
+```ts
+
+class Stream<_Tp>
+
+static of<_Tp>(inital : _Tp, generator : (e :_Tp) => _Tp, limiter : (e : _Tp) => boolean = null) : Stream<_Tp>
+private constructor()
+
+next() : IteratorResult<_Tp>
+
+[Symbol.iterator](): Iterator<_Tp>
+
+hasLimiter : boolean
+
+```
+
+
+
 
 
 ## Test
