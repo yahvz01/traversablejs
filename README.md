@@ -9,6 +9,8 @@ Generic collection library, written by Typescript
 ## Version Info
 
 ES5 target => 0.2.x; ( Not Recommend / Deprecated )
+
+
 // if you want get the "under ES5" target code, send e-mail "yahvz01@gmail.com"
 // you could be received the maintaining & maintained code that is more robust then 0.2.x version
 // Personally I'm using "this code (under ES5 target)"
