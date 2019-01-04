@@ -33,7 +33,7 @@ class Optional<_Tp> {
         else
             return this.data as _Tp
     }
-    public ifPresent( consumer : (value : _Tp | null ) => void ) : void {
+    public ifPresent( consumer : (value : _Tp ) => void ) : void {
         if(!this.isPresent()){
             consumer(this.data)
         }
