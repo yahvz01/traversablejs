@@ -34,12 +34,12 @@ class Optional<_Tp> {
             return this.data as _Tp
     }
     public ifPresent( consumer : (value : _Tp ) => void ) : void {
-        if(!this.isPresent()){
-            consumer(this.data)
+        if(this.isPresent()){
+            consumer(this.data);
         }
     }
     public isPresent(): boolean {
-        if(this.data == null || this.data == undefined ) {
+        if(this.data == null) {
             return false;
         } else {
             return true;

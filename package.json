@@ -1,6 +1,6 @@
 {
   "name": "traversable",
-  "version": "0.3.3",
+  "version": "0.3.4-hotfix",
   "main": "lib/main/index.js",
   "typings": "lib/main/index.d.ts",
   "license": "MIT",
