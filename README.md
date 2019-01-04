@@ -8,7 +8,12 @@ Generic collection library, written by Typescript
 
 ## Version Info
 
-ES5 target => 0.2.x;
+ES5 target => 0.2.x; ( Not Recommend / Deprecated )
+
+
+// if you want get the "under ES5" target code, send e-mail "yahvz01@gmail.com"
+// you could be received the maintaining & maintained code that is more robust then 0.2.x version
+// Personally I'm using "this code (under ES5 target)"
 
 ES6 target => 0.3.x, 0.4.x, 0.5.x;
 
@@ -352,7 +357,7 @@ public getOrElse( defaultData : _Tp ) : _Tp
 
 public getOrElseByLazy( defaultData : () => _Tp ) : _Tp
 
-public ifPresent( consumer : (value : _Tp | null ) => void ) : void
+public ifPresent( consumer : (value : _Tp ) => void ) : void
 
 public isPresent(): boolean 
 
