@@ -357,7 +357,7 @@ public getOrElse( defaultData : _Tp ) : _Tp
 
 public getOrElseByLazy( defaultData : () => _Tp ) : _Tp
 
-public ifPresent( consumer : (value : _Tp | null ) => void ) : void
+public ifPresent( consumer : (value : _Tp ) => void ) : void
 
 public isPresent(): boolean 
 
