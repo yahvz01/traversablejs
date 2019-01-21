@@ -1,7 +1,8 @@
-import {Iterator, iteratorResultOf} from "../../../index"
+import {Iterator, iteratorResultOf, List} from "../../../index"
+import {LinearSeq} from "../../index"
 import IndexedSeq from "../IndexedSeq"
 import Seq from "../../Seq"
-import {Gen, Optional, Traversable} from "../../../../index"
+import {Gen, listOf, Optional, Traversable} from "../../../../index"
 
 
 
@@ -24,6 +25,10 @@ class Vector<_Tp> implements IndexedSeq<_Tp>{
         if(this._size == null)
             this._size = this.dataSet.length
         return this._size
+    }
+
+    get length() : number {
+        return this.size
     }
 
     get isEmpty(): boolean { return this.size == 0 }
@@ -150,8 +155,8 @@ class Vector<_Tp> implements IndexedSeq<_Tp>{
         return result
     }
 
-    foreach(consumer: (e: _Tp) => void): void {
-        this.dataSet.forEach((value) => { consumer(value); })
+    foreach(consumer: (e: _Tp, index : number) => void): void {
+        this.dataSet.forEach((value, index) => { consumer(value, index); })
     }
 
     hasDefiniteSize(): boolean {
@@ -162,23 +167,26 @@ class Vector<_Tp> implements IndexedSeq<_Tp>{
         return Gen.until(0, this.size);
     }
 
-    map<K>(f: (e: _Tp) => K): Traversable<K> {
+    map<K>(f: (e: _Tp, index : number) => K): Traversable<K> {
         const result = new Vector<K>()
         result.dataSet = []
+        let index = -1;
         this.dataSet.forEach((value) => {
-            result.dataSet.push(f(value))
+            ++index;
+            result.dataSet.push(f(value, index))
         })
         return result;
     }
 
 
+
     remove(index: number): Seq<_Tp> {
-        let currIndex = 0
         const result = new Vector<_Tp>()
         result.dataSet = []
-        this.dataSet.forEach((value) => {
-            if(currIndex != index)
-                result.dataSet.push(value)
+        this.dataSet.forEach((value, currIndex) => {
+            if(currIndex != index){
+                result.dataSet.push(value);
+            }
         })
         return result;
     }
@@ -202,20 +210,34 @@ class Vector<_Tp> implements IndexedSeq<_Tp>{
     push(e: _Tp): Seq<_Tp> {
         const result = this.copyDataSet()
         result.dataSet.push(e)
-        return result
+        return result;
     }
 
     pop(): Seq<_Tp> {
         const result = this.copyDataSet()
         result.dataSet.pop()
-        return result
+        return result;
     }
 
     updated(index: number, e: _Tp): Seq<_Tp> {
         const result = this.copyDataSet()
         result.dataSet[index] = e
-        return result
+        return result;
     }
+
+    toArray(): Array<_Tp> {
+        return [...this.dataSet];
+    }
+
+    toList(): LinearSeq<_Tp> {
+        return List.of(...this.dataSet);
+    }
+
+    toSeq(): IndexedSeq<_Tp> {
+        return this;
+    }
+
+
 
     private copyEmptyDataSet(){
         return this.copyDataSet(0, 0)

@@ -1,3 +1,4 @@
+import {listOf, seqOf} from "../../../../index"
 import Map from "../../Map"
 import MapTuple from "../../../generic/MapTuple"
 import Traversable, {Iterator, iteratorResultOf} from "../../../Traversable"
@@ -7,7 +8,7 @@ import { hashCode }  from "../../../generic/index"
 import Optional from "../../../../util/Optional"
 import Gen from "../../../generic/Gen"
 import Buffer from "../../../mutable/buffer/Buffer"
-import { Vector } from "../../index"
+import {IndexedSeq, LinearSeq, Vector} from "../../index"
 
 // Current Not Consider Hashing Confiliction
 
@@ -33,6 +34,10 @@ class HashMap<_TpK, _TpV> implements Map<_TpK, _TpV> {
             this._size = this.keySet.length
         }
         return this._size as number;
+    }
+
+    get length() : number {
+        return this.size
     }
 
     get isEmpty(): boolean { return this.size == 0 }
@@ -212,19 +217,19 @@ class HashMap<_TpK, _TpV> implements Map<_TpK, _TpV> {
         return this.foldLeft(init, folding);
     }
 
-    foreach(consumer: (e: MapTuple<_TpK, _TpV>) => void): void {
-        this.keySet.forEach((value) => {
-            consumer(MapTuple.of(value, this.get(value)))
+    foreach(consumer: (e: MapTuple<_TpK, _TpV>, index : number) => void): void {
+        this.keySet.forEach((value, index) => {
+            consumer(MapTuple.of(value, this.get(value)), index)
         })
     }
 
-    map<K>(f: (e: MapTuple<_TpK, _TpV>) => K): Traversable<K> {
+    map<K>(f: (e: MapTuple<_TpK, _TpV>, index : number) => K): Traversable<K> {
         const result = Buffer.of<K>()
+        let index = -1;
         this.foreach((keyValue) => {
-            console.log("count")
-            result.push( f(keyValue) )
+            ++index;
+            result.push( f(keyValue, index) )
         })
-        console.log("inner Result : " + JSON.stringify(result))
         return result;
     }
 
@@ -271,6 +276,22 @@ class HashMap<_TpK, _TpV> implements Map<_TpK, _TpV> {
         }
         return result
     }
+
+    toArray(): Array<MapTuple<_TpK, _TpV>> {
+        const result = new Array<MapTuple<_TpK, _TpV>>();
+        this.foreach( it => result.push(it) )
+        return result;
+    }
+
+    toList(): LinearSeq<MapTuple<_TpK, _TpV>> {
+        return listOf(...(this.toArray()));
+    }
+
+    toSeq(): IndexedSeq<MapTuple<_TpK, _TpV>> {
+        return seqOf(...(this.toArray()));
+    }
+
+
 
     private copyHashMap(from : HashMap<_TpK, _TpV>, to : HashMap<_TpK, _TpV>) : void {
         from.keySet.forEach((value) => {

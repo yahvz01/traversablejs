@@ -1,7 +1,9 @@
 
+import {listOf, seqOf} from "../../../../index"
 import Traversable, {Iterator, iteratorResultOf} from "../../../Traversable"
 import Optional from "../../../../util/Optional"
 import Gen from "../../../generic/Gen"
+import {IndexedSeq, LinearSeq} from "../../index"
 import Set from "../../Set"
 import { hashCode } from "../../../generic/Util"
 
@@ -28,6 +30,10 @@ class HashSet<_Tp> implements Set<_Tp> {
                 ++this._size
         }
         return this._size
+    }
+
+    get length() : number {
+        return this.size
     }
 
     // head
@@ -182,10 +188,12 @@ class HashSet<_Tp> implements Set<_Tp> {
         return true;
     }
 
-    map<K>(f: (e: _Tp) => K): Traversable<K> {
+    map<K>(f: (e: _Tp, index : number) => K): Traversable<K> {
         const result = HashSet.of<K>()
+        let index = -1;
         for( const key in this.dataSet ){
-            const mappedData = f(this.dataSet[key])
+            ++index;
+            const mappedData = f(this.dataSet[key], index)
             this.insertMappedData(mappedData, result)
         }
         return result
@@ -269,11 +277,28 @@ class HashSet<_Tp> implements Set<_Tp> {
         return flag
     }
 
-    foreach(consumer: (e: _Tp) => void): void {
+    foreach(consumer: (e: _Tp, index: number) => void): void {
+        let index = -1;
         for(const key in this.dataSet){
-            consumer(this.dataSet[key])
+            consumer(this.dataSet[key], index);
         }
     }
+
+    toArray(): Array<_Tp> {
+        const result = new Array<_Tp>();
+        this.foreach(it => result.push(it));
+        return result;
+    }
+
+    toList(): LinearSeq<_Tp> {
+        return listOf(...(this.toArray()))
+    }
+
+    toSeq(): IndexedSeq<_Tp> {
+        return seqOf(...(this.toArray()))
+    }
+
+
 
     private insertData(data : _Tp, target : HashSet<_Tp> = this) : boolean {
         const key = hashCode(data)

@@ -3,8 +3,8 @@ class Stream<_Tp> {
 
     private stream : Generator
 
-    static of<_Tp>(inital : _Tp, generator : (e :_Tp) => _Tp, limiter : (e : _Tp) => boolean = null) : Stream<_Tp>{
-        return new Stream(inital, generator, limiter);
+    static of<_Tp>(initial : _Tp, generator : (e :_Tp) => _Tp, limiter : (e : _Tp) => boolean = null) : Stream<_Tp>{
+        return new Stream(initial, generator, limiter);
     }
 
     private constructor(private initial : _Tp, private generator : (e :_Tp) => _Tp, private limiter : (e : _Tp) => boolean | null = null){

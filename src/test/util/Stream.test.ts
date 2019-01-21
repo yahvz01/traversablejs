@@ -2,8 +2,8 @@ import {Stream} from "../../main"
 
 describe("Stream", () => {
 
-    let stream : Stream<number>
-    let limitedStream : Stream<number>
+    let stream: Stream<number>
+    let limitedStream: Stream<number>
 
     beforeEach(() => {
         stream = Stream.of(1, (e) => e + 2);
@@ -21,11 +21,11 @@ describe("Stream", () => {
 
 
     test("    ", () => {
-        for(const el of stream){
+        for (const el of stream) {
             expect(el).toEqual(3)
             return;
         }
-        for(const el of limitedStream){
+        for (const el of limitedStream) {
 
         }
         const limitedResult = limitedStream.next()

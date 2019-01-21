@@ -1,3 +1,5 @@
+import {seqOf} from "../../../../index"
+import {IndexedSeq, Vector} from "../../index"
 import LinearSeq from "../LinearSeq"
 import Optional from "../../../../util/Optional"
 import Traversable, {Iterator, iteratorResultOf} from "../../../Traversable"
@@ -22,6 +24,10 @@ class List<_Tp> implements LinearSeq<_Tp> {
 
     private _size : number = 0
     get size(): number { return this._size }
+
+    get length() : number {
+        return this.size
+    }
 
     get head(): _Tp {
         if(this.isEmpty)
@@ -112,11 +118,11 @@ class List<_Tp> implements LinearSeq<_Tp> {
 
     remove(index: number): Seq<_Tp> {
         const buffer = new Array<_Tp>()
-        let currIndex = 0
-        this.foreach( value => {
+
+        this.foreach( ( value, currIndex) => {
             // InnerReturn
             if(currIndex == index)
-                return
+                return;
             buffer.push(value)
         })
         return List.of(...buffer);
@@ -237,14 +243,15 @@ class List<_Tp> implements LinearSeq<_Tp> {
         return existsFlag
     }
 
-
-    map<K>(f: (e: _Tp) => K): Traversable<K> {
+    map<K>(f: (e: _Tp, index : number) => K): Traversable<K> {
         const buffer = new Array<K>()
+        let index = -1;
         this.foreach( value => {
-            buffer.push( f(value) )
+            buffer.push( f(value, index) )
         })
         return List.of(...buffer);
     }
+
 
     slice(from: number, until: number = this.size): Traversable<_Tp> {
         if(from < 0)
@@ -308,14 +315,32 @@ class List<_Tp> implements LinearSeq<_Tp> {
 
     }
 
-    foreach(consumer: (e: _Tp) => void): void {
+    foreach(consumer: (e: _Tp, index : number) => void): void {
         if(this.isEmpty) return;
+        let index = -1;
         let currNode = this._dummyHead
         do {
+            ++index;
             currNode = currNode.next
-            consumer(currNode.data)
+            consumer(currNode.data, index)
         } while(currNode.hasNext())
     }
+
+    toArray(): Array<_Tp> {
+        const result = new Array<_Tp>();
+        this.foreach( it => result.push(it));
+        return result;
+    }
+
+    toList(): LinearSeq<_Tp> {
+        return this;
+    }
+
+    toSeq(): IndexedSeq<_Tp> {
+        return seqOf(...(this.toArray()));
+    }
+
+
 
     private insertData(data : _Tp){
         const newNode = Node.of(data)

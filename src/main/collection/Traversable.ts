@@ -1,9 +1,11 @@
 import Optional from "../util/Optional";
+import {IndexedSeq, LinearSeq} from "./immutable"
 
 interface Traversable<_Tp> extends Iterable<_Tp>{
     //크기 정보
     isEmpty : boolean
     size : number
+    length : number
     hasDefiniteSize() : boolean
 
     // 원소 가져오기
@@ -16,11 +18,12 @@ interface Traversable<_Tp> extends Iterable<_Tp>{
     tail : Traversable<_Tp>
     init : Traversable<_Tp>
 
-    foreach( consumer : ( e : _Tp) => (void)) : void
+    foreach( consumer : ( e : _Tp, index : number) => (void)) : void
     [Symbol.iterator]() : Iterator<_Tp>
 
     // Mapping
-    map<K>(f : (e : _Tp) => K) : Traversable<K>
+    //map<K>(f : (e : _Tp) => K) : Traversable<K>
+    map<K>(f : (e : _Tp, index : number) => K) : Traversable<K>
 
     // slice method Not Throw Exception
     slice( from : number, until : number ) : Traversable<_Tp>
@@ -40,6 +43,10 @@ interface Traversable<_Tp> extends Iterable<_Tp>{
     // Folding
     foldLeft<K>(init: K, folding : (acc : K, curr : _Tp) => K) : K
     foldRight<K>(init: K, folding : (acc : K, curr : _Tp) => K) : K
+
+    toArray() : Array<_Tp>;
+    toSeq() : IndexedSeq<_Tp>;
+    toList() : LinearSeq<_Tp>;
 }
 
 export interface Iterable<_Tp> {

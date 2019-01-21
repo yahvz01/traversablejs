@@ -1,4 +1,5 @@
 import { Vector, Traversable } from "../../../main";
+import {IndexedSeq} from "../../../main/collection/immutable"
 
 // Traversable
 describe("Vector implements Traversable only property", () => {
@@ -108,3 +109,40 @@ describe("Vector implements Traversable only property", () => {
         expect(multiVector.size).toEqual(resultArray.length)
     })
 });
+
+
+describe("Vector implements IndexedSeq only property", () => {
+
+    function makeEmpty(){
+        multiVector = Vector.of();
+    }
+
+    let emptyVector : IndexedSeq<number>
+    let singleVector : IndexedSeq<number>
+    let doubleVector : IndexedSeq<number>
+    let multiVector : IndexedSeq<number>
+
+    beforeEach(() => {
+        emptyVector = Vector.of<number>()
+        singleVector = Vector.of(111)
+        doubleVector = Vector.of(95, 200)
+        multiVector = Vector.of(1, 2, 3, 4, 5)
+    })
+
+    afterEach(() => {
+        // immutable Size Check
+        expect(emptyVector.size).toEqual(0)
+        expect(singleVector.size).toEqual(1)
+        expect(doubleVector.size).toEqual(2)
+        expect(multiVector.size).toEqual(5)
+    })
+
+    test("vector : remove test", () => {
+        expect(emptyVector.remove(1).size).toEqual(0)
+        expect(singleVector.remove(0).size).toEqual(0)
+        expect(doubleVector.remove(0).size).toEqual(1)
+        expect(doubleVector.remove(1).size).toEqual(1)
+        console.log(JSON.stringify(doubleVector));
+        console.log(JSON.stringify(doubleVector.remove(1)));
+    })
+})

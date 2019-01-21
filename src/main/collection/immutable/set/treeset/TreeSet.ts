@@ -1,5 +1,6 @@
-import {Optional, Set, Traversable} from "../../../../../main"
+import {listOf, Optional, seqOf, Set, Traversable} from "../../../../../main"
 import {Iterator, iteratorResultOf} from "../../../Traversable"
+import {IndexedSeq, LinearSeq} from "../../index"
 
 
 
@@ -29,6 +30,9 @@ class TreeSet<_Tp> implements Set<_Tp> {
             }
         }
         return this._size
+    }
+    get length() : number {
+        return this.size
     }
 
     hasDefiniteSize(): boolean { return true; }
@@ -170,21 +174,51 @@ class TreeSet<_Tp> implements Set<_Tp> {
         return flag;
     }
 
-    foreach(consumer: (e: _Tp) => void, rootNode : TreeNode<_Tp> = (this._root as TreeNode<_Tp>)): void {
+    toArray(): Array<_Tp> {
+        const result = new Array<_Tp>();
+        this.foreach(it => result.push(it) );
+        return result;
+    }
+
+    toList(): LinearSeq<_Tp> {
+        return listOf(...(this.toArray()))
+    }
+
+    toSeq(): IndexedSeq<_Tp> {
+        return seqOf(...(this.toArray()))
+    }
+
+
+
+    private setInit = false;
+    private currIndex = 0;
+    foreach(consumer: (e: _Tp, index : number) => void, rootNode : TreeNode<_Tp> = (this._root as TreeNode<_Tp>)): void {
+        if(this.setInit == false){
+            this.setInit = true;
+        }
         if(rootNode != null) {
+            ++this.currIndex;
             if(rootNode.hasLeft){
                 this.foreach(consumer, rootNode.left);
             }
-            consumer(rootNode.data);
+            consumer(rootNode.data, this.currIndex);
             if(rootNode.hasRight){
                 this.foreach(consumer, rootNode.right);
             }
         }
+        if(this.setInit == true && this.currIndex == this.size){
+            this.setInit = false;
+            this.currIndex = 0;
+        }
     }
 
-    map<K>(f: (e: _Tp) => K): Traversable<K> {
+    map<K>(f: (e: _Tp, index : number) => K): Traversable<K> {
         const buffer = new Array<K>()
-        this.foreach(value =>  buffer.push(f(value)) )
+        let index = -1;
+        this.foreach(value => {
+            ++index;
+            buffer.push(f(value, index))
+        })
         return TreeSet.of(...buffer)
     }
 

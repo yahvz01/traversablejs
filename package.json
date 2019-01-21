@@ -1,6 +1,6 @@
 {
   "name": "traversable",
-  "version": "0.3.4-hotfix",
+  "version": "0.3.10s",
   "main": "lib/main/index.js",
   "typings": "lib/main/index.d.ts",
   "license": "MIT",
@@ -18,6 +18,5 @@
   "repository": "https://github.com/yahvz01/traversablejs.git",
   "author": "yahvz01 <yahvz01@gmail.com>",
   "dependencies": {
-
   }
 }

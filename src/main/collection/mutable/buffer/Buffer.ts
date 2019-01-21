@@ -1,3 +1,5 @@
+import {listOf, seqOf} from "../../../index"
+import {IndexedSeq, LinearSeq} from "../../immutable"
 import Traversable, {Iterator, iteratorResultOf} from "../../Traversable"
 import Optional from "../../../util/Optional"
 import Gen from "../../generic/Gen"
@@ -21,6 +23,11 @@ class Buffer<_Tp> implements MutableSeq<_Tp>{
     get size(): number {
         return this.buffer.length
     }
+
+    get length() : number {
+        return this.size
+    }
+
     get head(): _Tp {
         if(this.size <= 0) throw new Error("NoSuchElementException")
         return this.buffer[0]
@@ -147,9 +154,9 @@ class Buffer<_Tp> implements MutableSeq<_Tp>{
         return flag
     }
 
-    foreach(consumer: (e: _Tp) => void): void {
-        this.buffer.forEach((value) => {
-            consumer(value)
+    foreach(consumer: (e: _Tp, index : number) => void): void {
+        this.buffer.forEach((value, index) => {
+            consumer(value, index)
         })
     }
 
@@ -157,10 +164,12 @@ class Buffer<_Tp> implements MutableSeq<_Tp>{
         return true;
     }
 
-    map<K>(f: (e: _Tp) => K): Traversable<K> {
+    map<K>(f: (e: _Tp, index : number) => K): Traversable<K> {
+        let index = -1;
         return Buffer.from(
             this.buffer.map<K>((value) => {
-                return f(value)
+                ++index;
+                return f(value, index);
             })
         );
     }
@@ -212,6 +221,20 @@ class Buffer<_Tp> implements MutableSeq<_Tp>{
         }
         return Buffer.from(newBuffer)
     }
+
+    toArray(): Array<_Tp> {
+        return [...this.buffer]
+    }
+
+    toList(): LinearSeq<_Tp> {
+        return listOf(...this.toArray());
+    }
+
+    toSeq(): IndexedSeq<_Tp> {
+        return seqOf(...this.toArray());
+    }
+
+
 
     [Symbol.iterator](): Iterator<_Tp> {
         return new HashSetIterator(this);

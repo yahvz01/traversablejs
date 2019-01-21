@@ -1,4 +1,4 @@
-import { Optional } from "../../main";
+import {Optional} from "../../main";
 
 /**
  * Optional<_Tp> test case
