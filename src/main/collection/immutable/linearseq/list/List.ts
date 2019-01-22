@@ -247,6 +247,7 @@ class List<_Tp> implements LinearSeq<_Tp> {
         const buffer = new Array<K>()
         let index = -1;
         this.foreach( value => {
+            ++index;
             buffer.push( f(value, index) )
         })
         return List.of(...buffer);
