@@ -5,8 +5,6 @@ import Seq from "../../Seq"
 import {Gen, listOf, Optional, Traversable} from "../../../../index"
 
 
-
-
 class Vector<_Tp> implements IndexedSeq<_Tp>{
 
     private dataSet: Array<_Tp>
@@ -76,6 +74,9 @@ class Vector<_Tp> implements IndexedSeq<_Tp>{
         for(currIndex; currIndex < count; ++currIndex){
             if(currIndex >= count)
                 break;
+            if(this.dataSet[currIndex] == null){
+                break;
+            }
             result.dataSet.push(this.dataSet[currIndex])
         }
         return result
@@ -196,24 +197,31 @@ class Vector<_Tp> implements IndexedSeq<_Tp>{
     }
 
 
-    unshift(e: _Tp): Seq<_Tp> {
+    unshift(e: _Tp): Traversable<_Tp> {
         const result = this.copyDataSet()
         result.dataSet.unshift(e)
         return result
     }
-    shift(): Seq<_Tp> {
+    shift(): Traversable<_Tp> {
         const result = this.copyDataSet()
         result.dataSet.shift()
         return result
     }
 
-    push(e: _Tp): Seq<_Tp> {
+    push(e: _Tp): Traversable<_Tp> {
         const result = this.copyDataSet()
         result.dataSet.push(e)
         return result;
     }
+    pushAll(list: Traversable<_Tp>): Traversable<_Tp> {
+        const result = this.copyDataSet()
+        list.foreach( e => {
+            result.dataSet.push(e);
+        })
+        return result;
+    }
 
-    pop(): Seq<_Tp> {
+    pop(): Traversable<_Tp> {
         const result = this.copyDataSet()
         result.dataSet.pop()
         return result;
@@ -224,6 +232,7 @@ class Vector<_Tp> implements IndexedSeq<_Tp>{
         result.dataSet[index] = e
         return result;
     }
+
 
     toArray(): Array<_Tp> {
         return [...this.dataSet];
@@ -247,7 +256,6 @@ class Vector<_Tp> implements IndexedSeq<_Tp>{
         if(start > end)
             throw new RangeError()
         const result = new Vector<_Tp>()
-        //slice endindex is not include
         result.dataSet = this.dataSet.slice(start, end)
         return result
     }

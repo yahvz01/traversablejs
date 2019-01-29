@@ -2,7 +2,7 @@ import {seqOf} from "../../../../index"
 import {IndexedSeq, Vector} from "../../index"
 import LinearSeq from "../LinearSeq"
 import Optional from "../../../../util/Optional"
-import Traversable, {Iterator, iteratorResultOf} from "../../../Traversable"
+import {Iterator, iteratorResultOf, Traversable } from "../../../Traversable"
 import Gen from "../../../generic/Gen"
 import Seq from "../../Seq"
 
@@ -115,6 +115,14 @@ class List<_Tp> implements LinearSeq<_Tp> {
         buffer.push(e)
         return List.of(...buffer);
     }
+
+    pushAll(el: Traversable<_Tp>): Traversable<_Tp> {
+        const buffer = new Array<_Tp>()
+        this.foreach(value => buffer.push(value))
+        el.foreach(value => buffer.push(value))
+        return List.of(...buffer);
+    }
+
 
     remove(index: number): Seq<_Tp> {
         const buffer = new Array<_Tp>()

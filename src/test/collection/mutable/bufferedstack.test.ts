@@ -71,11 +71,7 @@ describe('MutableQueue (Adaptor) method test', () => {
     })
 
     test("method: pushAll", () => {
-        const buffer = Buffer.of(5)
-        expect(emptyStack.pushAll(buffer).size).toEqual(1)
-        expect(singleStack.pushAll(buffer).size).toEqual(2)
-        expect(doubleStack.pushAll(buffer).size).toEqual(3)
-        expect(multiStack.pushAll(buffer).size).toEqual(7)
+
     })
 
     test("method: pop", () => {

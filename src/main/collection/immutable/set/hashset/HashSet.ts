@@ -1,6 +1,6 @@
 
-import {listOf, seqOf} from "../../../../index"
-import Traversable, {Iterator, iteratorResultOf} from "../../../Traversable"
+import {Buffer, listOf, seqOf} from "../../../../index"
+import {Traversable, Iterator, iteratorResultOf} from "../../../Traversable"
 import Optional from "../../../../util/Optional"
 import Gen from "../../../generic/Gen"
 import {IndexedSeq, LinearSeq} from "../../index"
@@ -95,6 +95,35 @@ class HashSet<_Tp> implements Set<_Tp> {
         delete result.dataSet[headKey]
         return result
     }
+
+    pop(): Traversable<_Tp> {
+        return this.tail;
+    }
+
+    push(e: _Tp): Traversable<_Tp> {
+        const buffer = Buffer.of<_Tp>();
+        this.foreach(value => buffer.push(value) )
+        buffer.push(e)
+        return HashSet.of(...buffer.toArray())
+    }
+
+    pushAll(list: Traversable<_Tp>): Traversable<_Tp> {
+        const buffer = Buffer.of<_Tp>();
+        this.foreach(value => buffer.push(value) )
+        list.foreach((e : _Tp) => buffer.push(e) )
+
+        return HashSet.of(...buffer.toArray())
+    }
+
+    shift(): Traversable<_Tp> {
+        return undefined;
+    }
+
+    unshift(e: _Tp): Traversable<_Tp> {
+        return undefined;
+    }
+
+
 
     count(predicate: (e: _Tp) => boolean): number {
         let count = 0
@@ -291,11 +320,11 @@ class HashSet<_Tp> implements Set<_Tp> {
     }
 
     toList(): LinearSeq<_Tp> {
-        return listOf(...(this.toArray()))
+        return listOf(...(this.toArray()));
     }
 
     toSeq(): IndexedSeq<_Tp> {
-        return seqOf(...(this.toArray()))
+        return seqOf(...(this.toArray()));
     }
 
 

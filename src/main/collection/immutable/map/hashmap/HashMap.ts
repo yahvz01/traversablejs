@@ -1,7 +1,7 @@
-import {listOf, seqOf} from "../../../../index"
+import {listOf, mapOf, seqOf} from "../../../../index"
 import Map from "../../Map"
 import MapTuple from "../../../generic/MapTuple"
-import Traversable, {Iterator, iteratorResultOf} from "../../../Traversable"
+import {Iterator, iteratorResultOf, Traversable } from "../../../Traversable"
 
 import { hashCode }  from "../../../generic/index"
 
@@ -89,7 +89,7 @@ class HashMap<_TpK, _TpV> implements Map<_TpK, _TpV> {
         for(const hashKey in this.dataSet){
             result.push(this.dataSet[hashKey])
         }
-        return result
+        return result.toList()
     }
 
     clear(): Map<_TpK, _TpV> {
@@ -169,6 +169,26 @@ class HashMap<_TpK, _TpV> implements Map<_TpK, _TpV> {
         return result
     }
 
+    pop(): Traversable<MapTuple<_TpK, _TpV>> {
+        return this.init;
+    }
+
+    push(e: MapTuple<_TpK, _TpV>): Traversable<MapTuple<_TpK, _TpV>> {
+        return this.put(e);
+    }
+
+    pushAll(e: Traversable<MapTuple<_TpK, _TpV>>): Traversable<MapTuple<_TpK, _TpV>> {
+        return this.putAll(e);
+    }
+
+    shift(): Traversable<MapTuple<_TpK, _TpV>> {
+        return this.tail;
+    }
+
+    unshift(e: MapTuple<_TpK, _TpV>): Traversable<MapTuple<_TpK, _TpV>> {
+        return this.put(e)
+    }
+
     // Traverable
 
     count(predicate: (e: MapTuple<_TpK, _TpV>) => boolean): number {
@@ -230,7 +250,7 @@ class HashMap<_TpK, _TpV> implements Map<_TpK, _TpV> {
             ++index;
             result.push( f(keyValue, index) )
         })
-        return result;
+        return result.toList();
     }
 
     slice(from: number, until: number = this.size): Traversable<MapTuple<_TpK, _TpV>> {
@@ -257,7 +277,7 @@ class HashMap<_TpK, _TpV> implements Map<_TpK, _TpV> {
             if(!predicate(MapTuple.of(key, this.dataSet[key]))) break;
             result.push(MapTuple.of(key, this.dataSet[key]))
         }
-        return result
+        return mapOf(...result.toArray())
     }
 
     drop(index: number): Traversable<MapTuple<_TpK, _TpV>> {
@@ -274,7 +294,7 @@ class HashMap<_TpK, _TpV> implements Map<_TpK, _TpV> {
                 continue;
             result.push(MapTuple.of(key, this.dataSet[key]))
         }
-        return result
+        return result.toList()
     }
 
     toArray(): Array<MapTuple<_TpK, _TpV>> {

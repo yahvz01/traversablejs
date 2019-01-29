@@ -3,14 +3,14 @@
  */
 
 import Buffer from "../../../main/collection/mutable/buffer/Buffer"
-import Traversable from "../../../main/collection/Traversable"
+import {MutableTraversable, Traversable} from "../../../main"
 
 describe("Buffer property test [Traversable]", () => {
 
-    let emptyBuffer : Traversable<number>
-    let singleBuffer : Traversable<number>
-    let doubleBuffer : Traversable<number>
-    let multiBuffer : Traversable<number>
+    let emptyBuffer : MutableTraversable<number>
+    let singleBuffer : MutableTraversable<number>
+    let doubleBuffer : MutableTraversable<number>
+    let multiBuffer : MutableTraversable<number>
 
     beforeEach(() => {
         emptyBuffer = Buffer.of<number>()

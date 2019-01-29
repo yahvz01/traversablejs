@@ -1,4 +1,4 @@
-import Traversable from "../Traversable"
+import { Traversable } from "../Traversable";
 import MapTuple from "../generic/MapTuple"
 
 

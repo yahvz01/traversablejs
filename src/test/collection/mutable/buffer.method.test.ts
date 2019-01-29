@@ -1,13 +1,12 @@
-import Traversable from "../../../main/collection/Traversable"
-import Buffer from "../../../main/collection/mutable/buffer/Buffer"
+import {MutableTraversable, Traversable, Buffer} from "../../../main"
 
 
 describe("Buffer property test [Traversable]", () => {
 
-    let emptyBuffer : Traversable<number>
-    let singleBuffer : Traversable<number>
-    let doubleBuffer : Traversable<number>
-    let multiBuffer : Traversable<number>
+    let emptyBuffer : MutableTraversable<number>
+    let singleBuffer : MutableTraversable<number>
+    let doubleBuffer : MutableTraversable<number>
+    let multiBuffer : MutableTraversable<number>
 
 
     const evenNumberFunction = (value : number) => value % 2 == 0

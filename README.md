@@ -157,7 +157,15 @@ count( predicate : (e : _Tp) => boolean) : number
 foldLeft<K>(init: K, folding : (acc : K, curr : _Tp) => K) : K
 foldRight<K>(init: K, folding : (acc : K, curr : _Tp) => K) : K
 
-// Convert To Native Array or sub type collection
+// Modify
+unshift( e : _Tp) : Traversable<_Tp>
+shift() : Traversable<_Tp>
+push( e : _Tp) : Traversable<_Tp>
+pushAll( e : Traversable<_Tp> ) : Traversable<_Tp>
+pop() : Traversable<_Tp>
+
+
+// Convert Other Data Structure
 toArray() : Array<_Tp>;
 toSeq() : IndexedSeq<_Tp>;
 toList() : LinearSeq<_Tp>;

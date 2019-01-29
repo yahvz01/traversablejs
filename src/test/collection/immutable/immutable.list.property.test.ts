@@ -1,5 +1,4 @@
-import Traversable from "../../../main/collection/Traversable"
-import {listOf} from "../../../main"
+import { Traversable, listOf } from "../../../main"
 
 describe("List property test [Traversable]", () => {
 

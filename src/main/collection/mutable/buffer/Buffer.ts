@@ -1,6 +1,6 @@
 import {listOf, seqOf} from "../../../index"
 import {IndexedSeq, LinearSeq} from "../../immutable"
-import Traversable, {Iterator, iteratorResultOf} from "../../Traversable"
+import {Traversable,  Iterator, iteratorResultOf, MutableTraversable} from "../../Traversable"
 import Optional from "../../../util/Optional"
 import Gen from "../../generic/Gen"
 import MutableSeq from "../MutableSeq"
@@ -35,9 +35,9 @@ class Buffer<_Tp> implements MutableSeq<_Tp>{
     get headOptional(): Optional<_Tp> {
         return Optional.of(this.buffer[0])
     }
-    get init(): Traversable<_Tp>{
-        return Buffer.from(
-            this.buffer.slice(0, this.size - 1)
+    get init(): Buffer<_Tp>{
+        return Buffer.of(
+            ...(this.buffer.slice(0, this.size - 1))
         )
     }
     get isEmpty(): boolean { return this.size == 0}
@@ -48,7 +48,7 @@ class Buffer<_Tp> implements MutableSeq<_Tp>{
     get lastOptional(): Optional<_Tp> {
         return Optional.of(this.buffer[this.size - 1])
     }
-    get tail(): Traversable<_Tp> {
+    get tail(): Buffer<_Tp> {
         return Buffer.from(
             this.buffer.slice(1, this.size)
         )
@@ -77,6 +77,14 @@ class Buffer<_Tp> implements MutableSeq<_Tp>{
         this.buffer.push(e)
     }
 
+    pushAll(e: MutableTraversable<_Tp>): void {
+    }
+
+    unshift(e: _Tp): void {
+    }
+
+
+
     remove(index: number): void {
         this.buffer = this.buffer.splice(index, 1)
     }
@@ -91,9 +99,6 @@ class Buffer<_Tp> implements MutableSeq<_Tp>{
         return result
     }
 
-    unshift(e: _Tp): void {
-        this.buffer.unshift(e)
-    }
 
     updated(index: number, e: _Tp): void {
         if(index > this.size - 1)
@@ -121,7 +126,7 @@ class Buffer<_Tp> implements MutableSeq<_Tp>{
         return flag
     }
 
-    filter(predicate: (e: _Tp) => boolean): Traversable<_Tp> {
+    filter(predicate: (e: _Tp) => boolean): MutableTraversable<_Tp> {
         const newBuffer = new Array<_Tp>()
         this.buffer.forEach((value) =>{
             if(predicate(value))
@@ -164,7 +169,7 @@ class Buffer<_Tp> implements MutableSeq<_Tp>{
         return true;
     }
 
-    map<K>(f: (e: _Tp, index : number) => K): Traversable<K> {
+    map<K>(f: (e: _Tp, index : number) => K): MutableTraversable<K> {
         let index = -1;
         return Buffer.from(
             this.buffer.map<K>((value) => {
@@ -174,26 +179,24 @@ class Buffer<_Tp> implements MutableSeq<_Tp>{
         );
     }
 
-    slice(from: number, until: number): Traversable<_Tp> {
+    slice(from: number, until: number): MutableTraversable<_Tp> {
         if(from < 0 || from > until)
             throw new RangeError()
         if(until > this.size)
             throw new Error("NoSuchElementExceoption")
-        return Buffer.from(
-            this.buffer.slice(from, until)
-        )
+        return Buffer.of( ...(this.buffer.slice(from, until)) )
     }
 
-    take( count : number): Traversable<_Tp> {
+    take( count : number): MutableTraversable<_Tp> {
         if(count < 0)
             throw new RangeError()
         if( count > this.size)
             throw new Error("NoSuchElementException")
         const newBuffer = this.buffer.slice(0, count)
-        return Buffer.from(newBuffer);
+        return Buffer.of(...newBuffer);
     }
 
-    takeWhile(predicate: (e: _Tp) => boolean): Traversable<_Tp> {
+    takeWhile(predicate: (e: _Tp) => boolean): MutableTraversable<_Tp> {
         const newBuffer = new Array<_Tp>()
         for(const value of this.buffer){
             if(predicate(value)) break;
@@ -203,23 +206,23 @@ class Buffer<_Tp> implements MutableSeq<_Tp>{
     }
 
 
-    drop(index: number): Traversable<_Tp> {
+    drop(index: number): MutableTraversable<_Tp> {
         if(index < 0)
             throw new RangeError()
         const newBuffer = new Array<_Tp>()
         for(let i = index; i < this.size; ++i){
             newBuffer.push(this.buffer[i])
         }
-        return Buffer.from(newBuffer);
+        return Buffer.of(...newBuffer);
     }
 
-    dropWhile(predicate: (e: _Tp) => boolean): Traversable<_Tp> {
+    dropWhile(predicate: (e: _Tp) => boolean): MutableTraversable<_Tp> {
         const newBuffer = new Array<_Tp>()
         for(const value of this.buffer){
             if(predicate(value)) continue;
             newBuffer.push(value)
         }
-        return Buffer.from(newBuffer)
+        return Buffer.of(...newBuffer);
     }
 
     toArray(): Array<_Tp> {
@@ -243,7 +246,7 @@ class Buffer<_Tp> implements MutableSeq<_Tp>{
 
 class HashSetIterator<_Tp> implements Iterator<_Tp> {
 
-    constructor( private dataSource : Traversable<_Tp> ) {
+    constructor( private dataSource : MutableTraversable<_Tp> ) {
 
     }
     next(value?: _Tp): IteratorResult<_Tp> {

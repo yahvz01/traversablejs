@@ -1,4 +1,4 @@
-import Traversable from "../Traversable";
+import { Traversable } from "../Traversable";
 
 
 interface Set<_Tp> extends Traversable<_Tp>{

@@ -1,7 +1,4 @@
-import Traversable from "../../../main/collection/Traversable"
-import MapTuple from "../../../main/collection/generic/MapTuple"
-import HashMap from "../../../main/collection/immutable/map/hashmap/HashMap"
-
+import { Traversable, MapTuple, HashMap } from "../../../main"
 
 describe("hashmap method test { Traversable }", () => {
 

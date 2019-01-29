@@ -1,6 +1,7 @@
 import { Vector, Traversable } from "../../../main";
 import {IndexedSeq} from "../../../main/collection/immutable"
 
+
 // Traversable
 describe("Vector implements Traversable only property", () => {
 

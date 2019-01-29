@@ -1,5 +1,4 @@
-import Traversable from "../../../main/collection/Traversable"
-import HashSet from "../../../main/collection/immutable/set/hashset/HashSet"
+import { Traversable, HashSet } from "../../../main"
 
 describe('hashset method test', () => {
 

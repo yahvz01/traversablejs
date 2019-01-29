@@ -130,6 +130,31 @@ class TreeSet<_Tp> implements Set<_Tp> {
         return TreeSet.of(...buffer)
     }
 
+    pop(): Traversable<_Tp> {
+        return this.init
+    }
+
+    push(e: _Tp): Traversable<_Tp> {
+        return this.add(e);
+    }
+
+    pushAll(list: Traversable<_Tp>): Traversable<_Tp> {
+        const buffer = new Array<_Tp>()
+        list.foreach( (value : _Tp) => buffer.push(value) )
+        this.foreach( (value : _Tp) => buffer.push(value) )
+        return TreeSet.of(...buffer)
+    }
+
+    shift(): Traversable<_Tp> {
+        return this.tail;
+    }
+
+    unshift(e: _Tp): Traversable<_Tp> {
+        return this.add(e);
+    }
+
+
+
     retain(predicate: (e: _Tp) => boolean): Set<_Tp> {
         const buffer = new Array<_Tp>()
         this.foreach((value) => {

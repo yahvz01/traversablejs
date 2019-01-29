@@ -1,4 +1,3 @@
-import Traversable from "../../Traversable"
 import Buffer from "../buffer/Buffer"
 import Optional from "../../../util/Optional"
 
